@@ -1,0 +1,36 @@
+﻿
+<h4>Asignar Amenaza a Ecosistema</h4>
+
+<form asp-action="AsignarAmenaza" method="post">
+
+    <h6>Amenaza:</h6>
+    <select name="AmenazaId">
+
+        @foreach (var a in ViewBag.Amenazas)
+        {
+            <option value="@a.AmenazaId">@a.Nombre </option>
+        }
+
+    </select>
+    <br />
+    <br />
+    <h6>Ecosistema:</h6>
+    <select name="EcosistemaId">
+
+        @foreach (var ec in ViewBag.Ecosistemas)
+        {
+            <option value="@ec.EcosistemaMarinoId">@ec.Nombre</option>
+        }
+
+    </select>
+
+    <br />
+    <br />
+
+    <input type="submit" value="Asignar" class="btn btn-primary" />
+    <br />
+    <div>
+        <p>@TempData["msg"]</p>
+    </div>
+
+</form>

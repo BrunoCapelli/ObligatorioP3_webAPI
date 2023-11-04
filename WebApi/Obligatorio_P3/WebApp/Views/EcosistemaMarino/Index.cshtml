@@ -1,0 +1,138 @@
+﻿@model IEnumerable<Domain.DTO.EcosistemaMarinoDTO>
+
+@{
+    ViewData["Title"] = "Lista de Ecosistemas";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Estilos para la tabla */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Estilo para los botones */
+        .btn-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        /* Estilo para el botón "Create" */
+        .btn-create {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        /* Estilo para el botón "Asignar" */
+        .btn-asignar {
+            background-color: #ff600e;
+            color: #fff;
+        }
+
+        /* Estilo para el botón "Delete" */
+        .btn-delete {
+            background-color: red;
+            color: white;
+        }
+
+        /* Estilo para la imagen */
+        img {
+            max-width: 70px;
+            max-height: 70px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <h4>Ecosistemas</h4>
+
+    @if (ViewBag.Msg != "") {
+        <h5 style="color:red">@ViewBag.Msg </h5>
+        <h5 style="color:red">@TempData["msg"] </h5>
+    }
+
+    <p>
+        <a asp-action="Create" class="btn btn-create">Crear</a>
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Area</th>
+                <th>Pais</th>
+                <th>Latitud</th>
+                <th>Longitud</th>
+                <th>Grado de Peligro</th>
+                <th>Estado de conservacion</th>
+                <th>Foto</th>
+                
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.Ecosistema) {
+                <tr>
+                    <td>@item.EcosistemaMarinoId</td>
+                    <td>@item.Nombre</td>
+                    <td>@item.Area</td>
+                    <td>@item.PaisNombre</td>
+                    <td>@item.UbicacionGeografica.Latitud</td>
+                    <td>@item.UbicacionGeografica.Longitud</td>
+                    <td>@item.UbicacionGeografica.GradoPeligro</td>
+                    <td>@item.EstadoConservacion.Nombre</td>
+                    <td>
+                        <img src="~/img/ecosistemas/@item.ImagenURL" />
+                    </td>
+                    
+                    <td>
+                        <form method="post" asp-action="Delete" asp-route-id="@item.EcosistemaMarinoId" id="deleteForm">
+                            <div class="btn-container">
+                                <button id="confirmDelete" type="submit" class="btn btn-delete">Borrar</button>
+                            </div>
+                        </form>
+                    </td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+
+<script>
+    $(document).ready(function () {
+        $('.btn-delete').click(function () {
+            var form = $(this).closest('form');
+            var id = form.find('input[name="id"]').val();
+            if (confirm("¿Estás seguro de que deseas eliminar este elemento?")) {
+                form.submit();
+            } else {
+                return false;
+            }
+        });
+    });
+</script>
+
+</html>

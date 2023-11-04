@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Asignar Amenaza";
+}
+
+<h4>Asignar Amenaza a Especie </h4>
+
+<form asp-action="AsignarAmenaza" method="post">
+
+    <h6>Especie:</h6>
+    <select name="EspecieId">
+
+        @foreach (var e in ViewBag.Especies)
+        {
+            <option value="@e.EspecieId">@e.NombreVulgar (@e.NombreCientifico)</option>
+        }
+
+    </select>
+    <br />
+
+    <br />
+    <h6>Amenaza:</h6>
+    <select name="AmenazaId">
+
+        @foreach (var a in ViewBag.Amenazas)
+        {
+            <option value="@a.AmenazaId">@a.Nombre</option>
+        }
+
+    </select>
+
+    <br />
+    <br />
+
+    <input type="submit" value="Asignar" class="btn btn-primary" />
+    <br />
+    <div>
+        <p>@TempData["msg"]</p>
+    </div>
+
+</form>

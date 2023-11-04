@@ -1,0 +1,163 @@
+﻿@model IEnumerable<Domain.DTO.EspecieDTO>
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<style>
+    /* Estilos para la tabla */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+</style>
+
+<h4>Especies</h4>
+
+    <form asp-action="FiltrarPorNombreCientifico" method="post">
+        <input id="btnFiltrar" type="button" value="Filtrar" class="btn btn-primary" />
+
+
+        <div id="divNombreCientifico" style="display:flex; padding: 2% 0%">
+            <label class="control-label">Buscar por nombre cientifico:</label> <br>
+            <input id="txtBuscar" name="fNombreCientifico" type="text" class="form-control" style="width: 17%;" />
+            <input type="submit" value="Buscar" class="btn btn-primary" style="margin-top: 1%" /> <br>
+
+        </div>
+    </form>
+
+    <form asp-action="FiltrarPorGradoDeConservacion" method="post">
+        <div id="divPeligroExt">
+            <label class="control-label">Buscar por peligro de extincion:</label>
+            <select id="slcRangosExtincion" name="RangosExtincion" class="form-select" style="width: 17%;">
+                <option value="1">Malo</option>
+                <option value="2">Aceptable</option>
+                <option value="3">Bueno</option>
+                <option value="4">Optimo</option>
+            </select>
+            <input type="submit" value="Buscar" class="btn btn-primary" style="margin-top: 1%" /> <br>
+        </div>
+    </form>
+
+
+
+    <form asp-action="FiltrarPorPeso" method="post">
+        <div id="divRangoPeso">
+            <label class="control-label">Buscar por rango de peso:</label>
+            <input name="pesoDesde" type="text" class="form-control" style="width: 17%;" />
+            <input name="pesoHasta" type="text" class="form-control" style="width: 17%;" />
+            <input type="submit" value="Buscar" class="btn btn-primary" style="margin-top: 1%" /> <br>
+
+
+        </div>
+    </form>
+
+    <form asp-action="FiltrarPorEcosistema" method="post">
+        <div id="divBuscarEcosistema">
+            <label class="control-label">Buscar por ecosistema: </label>
+            <select id="slcEcosistemas" name="EcosistemaID" class="form-select" style="width: 17%;">
+                @foreach (var e in ViewBag.Ecosistemas)
+                {
+                    <option value="@e.EcosistemaMarinoId">@e.Nombre</option>
+                }
+            </select>
+            <input type="submit" value="Buscar" class="btn btn-primary" style="margin-top: 1%" /> <br>
+
+        </div>
+    </form>
+
+    <form asp-action="FiltrarPorEspecieQueNoHabita" method="post">
+        <div id="divNoPuedeHabitar">
+            <label class="control-label">Buscar que ecosistemas no puede habitar la especie: </label>
+            <select name="EspecieId" class="form-select" style="width: 17%;">
+                @foreach (var e in ViewBag.Especies)
+                {
+                    <option value="@e.EspecieId">@e.NombreVulgar (@e.NombreCientifico)</option>
+                }
+            </select>
+            <input type="submit" value="Buscar" class="btn btn-primary" style="margin-top: 1%" /> <br>
+
+        </div>
+    </form>
+
+
+    <br>
+    <br>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Area</th>
+                <th>Pais</th>
+                <th>Latitud</th>
+                <th>Longitud</th>
+                <th>Grado de Peligro</th>
+                <th>Estado de conservacion</th>
+                <th>Foto</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in ViewBag.Ecosistemas)
+            {
+                <tr>
+                    <td>@item.EcosistemaMarinoId</td>
+                    <td>@item.Nombre</td>
+                    <td>@item.Area</td>
+                    <td>@item.PaisNombre</td>
+                    <td>@item.UbicacionGeografica.Latitud</td>
+                    <td>@item.UbicacionGeografica.Longitud</td>
+                    <td>@item.UbicacionGeografica.GradoPeligro</td>
+                    <td>@item.EstadoConservacion.Nombre</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+<script>
+
+    var btn = document.querySelector("#btnFiltrar")
+    var divNombreCientifico = document.querySelector("#divNombreCientifico")
+    var divPeligroExt = document.querySelector("#divPeligroExt")
+    var divRangoPeso = document.querySelector("#divRangoPeso")
+    var divBuscarEcosistema = document.querySelector("#divBuscarEcosistema")
+    var divNoPuedeHabitar = document.querySelector("#divNoPuedeHabitar")
+
+
+    function OnInit() {
+        divNombreCientifico.style.display = "none"
+        divPeligroExt.style.display = "none"
+        divRangoPeso.style.display = "none"
+        divBuscarEcosistema.style.display = "none"
+        divNoPuedeHabitar.style.display = "none"
+
+    }
+
+
+    btn.addEventListener("click", () => {
+
+        divNombreCientifico.style.display = "block"
+        divPeligroExt.style.display = "block"
+        divRangoPeso.style.display = "block"
+        divBuscarEcosistema.style.display = "block"
+        divNoPuedeHabitar.style.display = "block"
+
+    })
+
+    OnInit()
+
+
+</script>

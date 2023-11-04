@@ -1,0 +1,39 @@
+﻿################################################################################
+# Este archivo .gitignore ha sido creado automáticamente por Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/ObligatorioP3/v17
+/Obligatorio_P3/Obligatorio_P3/obj/
+/Obligatorio_P3/Obligatorio_P3/obj
+/.vs/
+/.vs
+/Obligatorio_P3/Obligatorio_P3/obj/Obligatorio_P3.csproj.nuget.dgspec.json
+/Obligatorio_P3/Obligatorio_P3/obj/project.assets.json
+/Obligatorio_P3/Obligatorio_P3/obj/project.nuget.cache
+/Obligatorio_P3/Obligatorio_P3/obj/Debug/net7.0/Obligatorio_P3.assets.cache
+/Obligatorio_P3/Obligatorio_P3/obj/Debug/net7.0/Obligatorio_P3.GeneratedMSBuildEditorConfig.editorconfig
+/Obligatorio_P3/Obligatorio_P3/obj/Debug/net7.0/Obligatorio_P3.assets.cache
+/Obligatorio_P3/Obligatorio_P3/obj/Obligatorio_P3.csproj.nuget.dgspec.json
+/Obligatorio_P3/Obligatorio_P3/obj/project.assets.json
+/Obligatorio_P3/Obligatorio_P3/obj/project.nuget.cache
+/Obligatorio_P3/Obligatorio_P3/obj/Debug/net7.0/Obligatorio_P3.GeneratedMSBuildEditorConfig.editorconfig
+/Obligatorio_P3/Obligatorio_P3/obj/Obligatorio_P3.csproj.nuget.g.props
+/.vs/VSWorkspaceState.json
+/Obligatorio_P3/Obligatorio_P3/obj/Obligatorio_P3.csproj.nuget.g.props
+/Obligatorio_P3/Obligatorio_P3/obj/Obligatorio_P3.csproj.nuget.g.props
+/Obligatorio_P3/Servicios/obj
+/Obligatorio_P3/Data Access/obj
+/Obligatorio_P3/WebApp/obj
+/Obligatorio_P3/WebApp/WebApp.csproj.user
+/Obligatorio_P3/WebApp/appsettings.json
+/Obligatorio_P3/WebApp/bin/Debug/net7.0
+/Obligatorio_P3/Servicios/bin/Debug/net7.0
+/Obligatorio_P3/Data Access/bin/Debug/net7.0
+/Obligatorio_P3/WebApp/WebApp.csproj.user
+/Obligatorio_P3/WebApp/appsettings.json
+/Obligatorio_P3/WebApp/appsettings.json
+/Obligatorio_P3/WebApp/appsettings.json
+/Obligatorio_P3/WebApp/appsettings.json
+/Obligatorio_P3/WebApp/appsettings.Development.json
+/Obligatorio_P3/WebApp/wwwroot/img/ecosistemas
+/Obligatorio_P3/WebApp/wwwroot/img/especies

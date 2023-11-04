@@ -1,0 +1,117 @@
+﻿@model Domain.DTO.EspecieDTO
+
+@{
+    ViewData["Title"] = "Agregar nueva especie";
+}
+
+
+@if (ViewBag.Msg != "") {
+    <h5 style="color:red">@ViewBag.Msg</h5>
+}
+
+<h1>Create</h1>
+
+<h4>Especie</h4>
+<hr />
+
+<style>
+    /* Estilos para el formulario */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label.control-label {
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="file"],
+    select {
+        width: 100%;
+        padding: 10px;
+    }
+
+    input[type="submit"] {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    .text-danger {
+        color: red;
+    }
+
+    /* Estilos para la fila y el formulario */
+    .row {
+        display: flex;
+        justify-content: center;
+    }
+
+    .col-md-4 {
+        width: 50%;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="NombreCientifico" class="control-label">Nombre Cientifico</label>
+                <input asp-for="NombreCientifico" class="form-control" />
+                <span asp-validation-for="NombreCientifico" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NombreVulgar" class="control-label">Nombre Vulgar</label>
+                <input asp-for="NombreVulgar" class="form-control" />
+                <span asp-validation-for="NombreVulgar" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descripcion" class="control-label"></label>
+                <input asp-for="Descripcion" class="form-control" />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Peso minimo</label>
+                <input type="number" asp-for="PesoMin" class="form-control" />
+                <span asp-validation-for="PesoMin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Peso maximo</label>
+                <input type="number" asp-for="PesoMax" class="form-control" />
+                <span asp-validation-for="PesoMax" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Estado de conservacion</label>
+                <select name="EstadoConservacion">
+                    @foreach (var ec in ViewBag.estados)
+                    {
+                        <option value="@ec.EstadoConservacionId">@ec.Nombre</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Imagen" class="control-label"></label>
+                <input asp-for="Imagen" type="file" class="form-control" />
+                <span asp-validation-for="Imagen" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Agregar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
