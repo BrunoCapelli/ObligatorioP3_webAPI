@@ -2,9 +2,13 @@
 # Este archivo .gitignore ha sido creado automáticamente por Microsoft(R) Visual Studio.
 ################################################################################
 
+**/bin/
+**/obj/
 /.vs
 /WebApi/Obligatorio_P3/WebAPI/bin/
 /WebApi/Obligatorio_P3/WebAPI/obj/
+/WebApi/Obligatorio_P3/WebAPI/bin
+/WebApi/Obligatorio_P3/WebAPI/obj
 /WebApi/Obligatorio_P3/WebAPI/bin/Debug/net7.0
 /WebApi/Obligatorio_P3/WebAPI/obj/Debug/net7.0
 /WebApi/Obligatorio_P3/WebAPI/obj/Debug/net7.0/WebAPI.assets.cache
@@ -13,4 +17,6 @@
 /WebApi/Obligatorio_P3/WebAPI/obj/Debug/net7.0/WebAPI.csproj.AssemblyReference.cache
 /WebApi/Obligatorio_P3/WebAPI/obj/WebAPI.csproj.nuget.g.props
 /WebApi/Obligatorio_P3/WebAPI/obj/Debug/net7.0/WebAPI.csproj.AssemblyReference.cache
+/WebApi/Obligatorio_P3/WebAPI/obj/Debug/net7.0/WebAPI.csproj.AssemblyReference.cache
+/WebApi/Obligatorio_P3/WebAPI/obj/WebAPI.csproj.nuget.g.targets
 /WebApi/Obligatorio_P3/WebAPI/obj/Debug/net7.0/WebAPI.csproj.AssemblyReference.cache
