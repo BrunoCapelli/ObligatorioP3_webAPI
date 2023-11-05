@@ -1,5 +1,7 @@
 ﻿/Obligatorio_P3/obj/
 /LogicaDeNegocio/obj/
+**/bin/
+**/obj/
 /.vs
 /Obligatorio_P3/bin/
 /LogicaDeNegocio/bin/
