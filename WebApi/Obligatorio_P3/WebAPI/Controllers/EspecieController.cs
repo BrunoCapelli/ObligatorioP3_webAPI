@@ -3,6 +3,7 @@ using Domain.Entities;
 using Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Servicios.IServicios;
+using Servicios.Servicios;
 using System;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,10 +16,17 @@ namespace WebAPI.Controllers
     {
 
         private IServicioEspecie _servicioEspecie;
+        private IServicioEspecieAmenaza _servicioEspecieAmenaza;
+        private IServicioEcosistemaMarinoEspecie _servicioEcosistemaMarinoEspecie;
 
-        public EspecieController(IServicioEspecie servicioEspecie)
+        public EspecieController(IServicioEspecie servicioEspecie,
+            IServicioEcosistemaMarinoEspecie servicioEcosistemaMarinoEspecie,
+            IServicioEspecieAmenaza servicioEspecieAmenaza
+            )
         {
             _servicioEspecie = servicioEspecie;
+            _servicioEspecieAmenaza = servicioEspecieAmenaza;
+            _servicioEcosistemaMarinoEspecie = servicioEcosistemaMarinoEspecie;
         }
 
         [HttpGet]
@@ -149,6 +157,57 @@ namespace WebAPI.Controllers
             }
         }
 
+        
+        [HttpPost("AsociarEspecieAEcosistema")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        
+        public IActionResult AsociarEspecieAEcosistema(int especieId, int ecosistemaID)
+        {
+            try
+            {
+                if (ecosistemaID >= 0 && especieId >= 0)
+                {
+                    EcosistemaMarinoEspecieDTO emeDTO = _servicioEcosistemaMarinoEspecie.Add(ecosistemaID, especieId);
+                    return Ok(emeDTO);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return Conflict(ex.Message);
+            }
+        }
+        
+
+        [HttpPost("AsociarAmenazaAEspecie")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        public IActionResult AsociarAmenazaAEspecie(int AmenazaId, int EspecieId)
+        {
+            try
+            {
+                if (EspecieId > 0 && AmenazaId > 0)
+                {
+                    _servicioEspecieAmenaza.Add(AmenazaId, EspecieId);
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return Conflict(ex.Message);
+            }
+        }
+        
 
 
     }
