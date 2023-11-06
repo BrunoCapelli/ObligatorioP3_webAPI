@@ -2,9 +2,12 @@
 using Data_Access;
 using Data_Access.IRepositorios;
 using Data_Access.Repositorios;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Servicios.IServicios;
 using Servicios.Servicios;
+using System.Text;
 
 namespace WebAPI
 {
@@ -48,7 +51,23 @@ namespace WebAPI
             builder.Services.AddScoped(typeof(IRepositorioEcosistemaMarinoEspecie), typeof(RepositorioEcosistemaMarinoEspecie));
             builder.Services.AddScoped(typeof(IRepositorioUsuario), typeof(RepositorioUsuario));
 
-
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = false,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = builder.Configuration.GetSection("JWTConfig").GetSection("ValidIssuer").ToString(),
+                    ValidAudience = builder.Configuration.GetSection("JWTConfig").GetSection("ValidAudience").ToString(),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("unaClaveSeguraCienPorCientoRealNoFake"))
+                };
+            });
 
 
             var app = builder.Build();
@@ -61,7 +80,7 @@ namespace WebAPI
             }
 
             app.UseHttpsRedirection();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

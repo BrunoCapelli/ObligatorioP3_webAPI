@@ -1,6 +1,7 @@
 ﻿using Domain.DTO;
 using Domain.Entities;
 using Domain.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Servicios.IServicios;
 using Servicios.Servicios;
@@ -28,7 +29,7 @@ namespace WebAPI.Controllers
             _servicioEspecieAmenaza = servicioEspecieAmenaza;
             _servicioEcosistemaMarinoEspecie = servicioEcosistemaMarinoEspecie;
         }
-
+        [Authorize]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)] // Estos chirimbolos son para que Swagger interprete los posibles codigos de error que devuelve y los documente automaticamente
         public IActionResult GetAll()
