@@ -161,5 +161,18 @@ namespace Servicios.Servicios
 
             return ecoBuscado;
         }
+
+        public IEnumerable<EcosistemaMarinoEspecieDTO> GetAll()
+        {
+            IEnumerable<EcosistemaMarinoEspecie> ecos = _repositorioEcosistemaMarinoEspecie.GetAll();
+            List<EcosistemaMarinoEspecieDTO> ecosDto = new List<EcosistemaMarinoEspecieDTO>();
+            foreach(EcosistemaMarinoEspecie eco in ecos)
+            {
+                EcosistemaMarinoEspecieDTO ecoDto = new EcosistemaMarinoEspecieDTO(eco);
+                ecosDto.Add(ecoDto);
+            }
+
+            return ecosDto;
+        }
     }
 }

@@ -13,5 +13,7 @@ namespace Servicios.IServicios
         EcosistemaMarinoEspecieDTO Add(int idEcosistema, int idEspecie);
 
         bool isApto(int especieId, int ecosistemaId);
+
+        IEnumerable<EcosistemaMarinoEspecieDTO> GetAll();
     }
 }

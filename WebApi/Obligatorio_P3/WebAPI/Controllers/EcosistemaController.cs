@@ -9,6 +9,7 @@ using Servicios.Servicios;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Text.RegularExpressions;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebAPI.Controllers
 {
@@ -35,7 +36,7 @@ namespace WebAPI.Controllers
             _servicioPais = servicioPais;
         }
 
-        [HttpGet]
+        [HttpGet("Ecosistemas")]
         [ProducesResponseType(StatusCodes.Status200OK)] 
         public IActionResult GetAll()
         {
@@ -76,9 +77,9 @@ namespace WebAPI.Controllers
                 return NotFound(exception.Message);
             }
         }
-        /*
+        
         [HttpPost]
-        public IActionResult Post([FromBody] string Nombre, int Area, string Latitud, string Longitud, int GradoPeligro, int Pais, int EstadoConservacion/*, IFormFile Imagen//) {
+        public IActionResult Post(string Nombre, int Area, string Latitud, string Longitud, int GradoPeligro, [Required] int Pais, [Required] int EstadoConservacion/*, IFormFile Imagen*/) {
             try
             {
                 UbiGeografica ubi = new UbiGeografica();
@@ -125,7 +126,7 @@ namespace WebAPI.Controllers
                 using (FileStream stream = new FileStream(ruta, FileMode.Create))
                 {
                     Imagen.CopyTo(stream);
-                }
+                }*/
                 
                return Ok(nuevoEco);
             }
@@ -133,7 +134,7 @@ namespace WebAPI.Controllers
             {
                 return BadRequest(ex.ToString());
             }
-        }*/
+        }
 
         [HttpPost("AsociarAmenazaAEcosistema/{amenazaId}/{ecosistemaId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
