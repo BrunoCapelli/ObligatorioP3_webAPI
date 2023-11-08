@@ -29,6 +29,7 @@ namespace WebAPI.Controllers
             _servicioEspecieAmenaza = servicioEspecieAmenaza;
             _servicioEcosistemaMarinoEspecie = servicioEcosistemaMarinoEspecie;
         }
+
         [Authorize]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)] // Estos chirimbolos son para que Swagger interprete los posibles codigos de error que devuelve y los documente automaticamente
@@ -38,7 +39,8 @@ namespace WebAPI.Controllers
             return Ok(especies);
         }
 
-        [HttpGet("{id}")]
+        [Authorize]
+        [HttpGet("Ecosistema/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Get(int id)
@@ -54,7 +56,7 @@ namespace WebAPI.Controllers
             }
         }
 
-        
+        [Authorize]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -75,8 +77,9 @@ namespace WebAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
-       
+
+
+        [Authorize]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -94,6 +97,7 @@ namespace WebAPI.Controllers
         }
 
 
+        [Authorize]
         [HttpGet("nombre/{nombreCientifico}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -110,7 +114,8 @@ namespace WebAPI.Controllers
             }
         }
 
-        [HttpGet("grado/{gradoConservacion}")]
+        [Authorize]
+        [HttpGet("Grado/{gradoConservacion}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetGradoDeConservacion(int gradoConservacion)
@@ -126,7 +131,8 @@ namespace WebAPI.Controllers
             }
         }
 
-        [HttpGet("peso/{pesoDesde}/{pesoHasta}")]
+        [Authorize]
+        [HttpGet("Peso/{pesoDesde}/{pesoHasta}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetPeso(int pesoDesde, int pesoHasta)
@@ -142,6 +148,7 @@ namespace WebAPI.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("ecosistema/{ecosistemaID}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -158,12 +165,11 @@ namespace WebAPI.Controllers
             }
         }
 
-        
+        [Authorize]
         [HttpPost("AsociarEspecieAEcosistema")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        
         public IActionResult AsociarEspecieAEcosistema(int especieId, int ecosistemaID)
         {
             try
@@ -183,8 +189,8 @@ namespace WebAPI.Controllers
                 return Conflict(ex.Message);
             }
         }
-        
 
+        [Authorize]
         [HttpPost("AsociarAmenazaAEspecie")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

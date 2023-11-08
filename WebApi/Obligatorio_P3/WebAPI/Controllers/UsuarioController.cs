@@ -25,71 +25,71 @@ namespace WebAPI.Controllers
             _configuration = configuration;
         }
 
-        [Authorize]
-        [HttpGet]
-        public IActionResult FindUser(string user, string password)
-        {
-            UsuarioDTO userDTO = new UsuarioDTO() { Alias = user, Password =password };
-            var userFound = _servicioUsuario.FindUser(userDTO);
+        //[Authorize]
+        //[HttpGet]
+        //public IActionResult FindUser(string user, string password)
+        //{
+        //    UsuarioDTO userDTO = new UsuarioDTO() { Alias = user, Password =password };
+        //    var userFound = _servicioUsuario.FindUser(userDTO);
 
-            if(userFound == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(userFound);
-            }
-        }
+        //    if(userFound == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    else
+        //    {
+        //        return Ok(userFound);
+        //    }
+        //}
 
-        /*
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public IActionResult Register([Required] string Alias, [Required] string Password, [Required] string PassConfirm)
-        {
-            try
-            {
-                if (!String.IsNullOrEmpty(Alias) && !String.IsNullOrEmpty(Password) && !String.IsNullOrEmpty(PassConfirm))
-                {
-                    if (Password.ToLower() == PassConfirm.ToLower())
-                    {
-                        UsuarioDTO usuario = new UsuarioDTO { Alias = Alias, Password = Password };
-                        try
-                        {
-                            usuario = _servicioUsuario.Add(usuario);
-                            //_servicioAudit.Log(HttpContext.Session.GetString("email") ?? "NULL", usuario.UsuarioDTOId, "Usuario (Add)");
-                            return Ok("El usuario se creó correctamente!");
+        
+        //[HttpPost("Register")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status409Conflict)]
+        //public IActionResult Register([Required] string Alias, [Required] string Password, [Required] string PassConfirm)
+        //{
+        //    try
+        //    {
+        //        if (!String.IsNullOrEmpty(Alias) && !String.IsNullOrEmpty(Password) && !String.IsNullOrEmpty(PassConfirm))
+        //        {
+        //            if (Password.ToLower() == PassConfirm.ToLower())
+        //            {
+        //                UsuarioDTO usuario = new UsuarioDTO { Alias = Alias, Password = Password };
+        //                try
+        //                {
+        //                    usuario = _servicioUsuario.Add(usuario);
+        //                    //_servicioAudit.Log(HttpContext.Session.GetString("email") ?? "NULL", usuario.UsuarioDTOId, "Usuario (Add)");
+        //                    return Ok("El usuario se creó correctamente!");
 
-                        }
-                        catch (Exception ex)
-                        {
-                            return Conflict(ex.Message);
-                        }
-                    }
-                    else
-                    {
-                        return BadRequest("Las contraseñas deben coincidir");
-                    }
-                }
-                else
-                {
-                    return BadRequest("Debe completar todos los campos");
-                }
-
-
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest("Error: " + ex.Message);
-            }
-        }*/
+        //                }
+        //                catch (Exception ex)
+        //                {
+        //                    return Conflict(ex.Message);
+        //                }
+        //            }
+        //            else
+        //            {
+        //                return BadRequest("Las contraseñas deben coincidir");
+        //            }
+        //        }
+        //        else
+        //        {
+        //            return BadRequest("Debe completar todos los campos");
+        //        }
 
 
 
-        [HttpPost]
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest("Error: " + ex.Message);
+        //    }
+        //}
+
+
+
+        [HttpPost("Login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -105,13 +105,9 @@ namespace WebAPI.Controllers
                     UsuarioDTO userLogged = _servicioUsuario.FindUser(usuario);
                     if (userLogged != null)
                     {
-                        //HttpContext.Session.SetString("email", userLogged.Alias);
-                        //return RedirectToAction("Index", "Home");
-
-                        // Aca hay que devolver el token
-
-                        //GenerarToken(Alias);
-                        return Ok(GenerarToken(Alias));
+                        
+                        string token = GenerarToken(Alias);
+                        return Ok(new { AccessToken = token});
 
                     }
 
@@ -121,7 +117,7 @@ namespace WebAPI.Controllers
                     return BadRequest(ex.Message);
                 }
 
-                return NotFound();
+                return Unauthorized();
 
             }
             else
@@ -130,10 +126,10 @@ namespace WebAPI.Controllers
             }
         }
 
-        [HttpPost("generar-token")]
-        public IActionResult GenerarToken(string User)
+        [HttpPost]
+        public string GenerarToken(string User)
         {
-            // Información del usuario (esto puede variar según tus necesidades)
+            // Información del usuario
             var userId = User;
             
 
@@ -144,13 +140,13 @@ namespace WebAPI.Controllers
             // Crear las reclamaciones del token (claims)
             var claims = new[]
             {
-            new Claim(JwtRegisteredClaimNames.Sub, userId),
-        };
+                new Claim(JwtRegisteredClaimNames.Sub, userId)
+            };
 
             // Crear el token JWT
             var token = new JwtSecurityToken(
-                issuer: _configuration["JWTConfig:ValidIssuer"],
-                audience: _configuration["JWTConfig:ValidAudience"],
+                //issuer: _configuration["JWTConfig:ValidIssuer"],
+                //audience: _configuration["JWTConfig:ValidAudience"],
                 claims: claims,
                 expires: DateTime.UtcNow.AddHours(1), // Token válido durante 1 hora
                 signingCredentials: credentials
@@ -159,7 +155,7 @@ namespace WebAPI.Controllers
             // Convertir el token en una cadena
             var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
 
-            return Ok(new { token = tokenString });
+            return  tokenString;
         }
 
 

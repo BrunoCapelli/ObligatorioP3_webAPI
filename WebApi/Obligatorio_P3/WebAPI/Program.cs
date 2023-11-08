@@ -3,6 +3,7 @@ using Data_Access;
 using Data_Access.IRepositorios;
 using Data_Access.Repositorios;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Servicios.IServicios;
@@ -59,14 +60,18 @@ namespace WebAPI
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = false,
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = builder.Configuration.GetSection("JWTConfig").GetSection("ValidIssuer").ToString(),
-                    ValidAudience = builder.Configuration.GetSection("JWTConfig").GetSection("ValidAudience").ToString(),
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("unaClaveSeguraCienPorCientoRealNoFake"))
                 };
+            });
+
+            builder.Services.AddAuthorization(options =>
+            {
+                options.DefaultPolicy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build();
             });
 
 

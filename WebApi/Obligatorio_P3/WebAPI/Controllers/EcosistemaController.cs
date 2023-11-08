@@ -9,6 +9,7 @@ using Servicios.Servicios;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers
 {
@@ -35,6 +36,7 @@ namespace WebAPI.Controllers
             _servicioPais = servicioPais;
         }
 
+        [Authorize]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)] 
         public IActionResult GetAll()
@@ -43,7 +45,7 @@ namespace WebAPI.Controllers
             return Ok(especies);
         }
 
-
+        [Authorize]
         [HttpGet("Ecosistema/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -61,6 +63,7 @@ namespace WebAPI.Controllers
         }
 
 
+        [Authorize]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -135,6 +138,7 @@ namespace WebAPI.Controllers
             }
         }*/
 
+        [Authorize]
         [HttpPost("AsociarAmenazaAEcosistema/{amenazaId}/{ecosistemaId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
