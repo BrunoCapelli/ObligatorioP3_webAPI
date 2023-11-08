@@ -30,7 +30,7 @@ namespace WebAPI.Controllers
             _servicioEcosistemaMarinoEspecie = servicioEcosistemaMarinoEspecie;
         }
 
-        [Authorize]
+        
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)] // Estos chirimbolos son para que Swagger interprete los posibles codigos de error que devuelve y los documente automaticamente
         public IActionResult GetAll()

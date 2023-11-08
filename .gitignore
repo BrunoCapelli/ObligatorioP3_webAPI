@@ -27,3 +27,7 @@
 /WebApi/Obligatorio_P3/WebAPI/obj/WebAPI.csproj.nuget.dgspec.json
 /WebApi/Obligatorio_P3/WebAPI/obj/WebAPI.csproj.nuget.g.props
 /WebApi/Obligatorio_P3/WebAPI/obj/WebAPI.csproj.nuget.g.targets
+/WebApi/Obligatorio_P3/WebAPI/obj/Debug/net7.0/WebAPI.GeneratedMSBuildEditorConfig.editorconfig
+/WebApi/Obligatorio_P3/WebAPI/obj/Release/net7.0/WebAPI.csproj.AssemblyReference.cache
+/WebApi/Obligatorio_P3/WebAPI/obj/Release/net7.0/WebAPI.GeneratedMSBuildEditorConfig.editorconfig
+/WebApi/Obligatorio_P3/WebAPI/appsettings.json
