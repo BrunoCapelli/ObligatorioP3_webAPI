@@ -10,7 +10,7 @@ namespace Servicios.IServicios
     public interface IServicioPais:IServicio<PaisDTO>
     {
         IEnumerable<PaisDTO> GetAll();
-
+        Task<IEnumerable<PaisDTO>> LoadPaisesAsync();
         PaisDTO GetPais(int id);
     }
 }

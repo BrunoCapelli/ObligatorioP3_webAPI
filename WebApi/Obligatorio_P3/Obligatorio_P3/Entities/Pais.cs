@@ -21,7 +21,7 @@ namespace Domain.Entities
         public Pais() { } 
 
         public Pais(PaisDTO paisDTO) {
-            this.PaisId = paisDTO.PaisId;
+            //this.PaisId = paisDTO.PaisId;
             this.Nombre = paisDTO.Nombre;
             this.Codigo = paisDTO.Codigo;
         }

@@ -25,6 +25,14 @@ namespace WebAPI.Controllers
             return Ok(paises);
         }
 
-       
+        [HttpPost]
+        public async Task<IActionResult> LoadPaises()
+        {
+            IEnumerable<PaisDTO> paises = await _servicioPais.LoadPaisesAsync();
+
+            return Ok(paises);
+        }
+
+
     }
 }
