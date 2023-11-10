@@ -21,12 +21,32 @@ namespace Data_Access.Repositorios
             _restContext.Add(entity).GetAwaiter().GetResult();
             return entity;
         }
-        public List<EcosistemaAmenaza> GetByEcosistemaId(int id)
-        {
 
-            List<EcosistemaAmenaza> entity = _restContext.GetAll()
+        public IEnumerable<EcosistemaAmenaza> GetAll()
+        {
+            string filters = "";
+            IEnumerable<EcosistemaAmenaza> entity = _restContext.GetAll(filters).GetAwaiter().GetResult();
             return entity;
         }
 
+        public IEnumerable<EcosistemaAmenaza> GetByEcosistemaId(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(EcosistemaAmenaza entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(EcosistemaAmenaza entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        List<EcosistemaAmenaza> IRepositorioEcosistemaAmenaza<EcosistemaAmenaza>.GetByEcosistemaId(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

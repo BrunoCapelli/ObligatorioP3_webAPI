@@ -10,7 +10,7 @@ namespace Data_Access.IRepositorios
     public interface IRepositorioEcosistemaMarinoEspecie<EcosistemaMarinoEspecie>: IRepositorio<EcosistemaMarinoEspecie>
     {
         Especie GetByEspecieId(int id);
-        EcosistemaMarino GetByEcosistemaId(int id);
+        IEnumerable<EcosistemaMarinoEspecie> GetByEcosistemaId(int id);
         List<EcosistemaMarinoEspecie> GetEspeciesByEcosistemaId(int id);
     }
 }

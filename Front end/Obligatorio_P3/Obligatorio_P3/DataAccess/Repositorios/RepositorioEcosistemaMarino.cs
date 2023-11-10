@@ -1,4 +1,5 @@
 ﻿using Data_Access.IRepositorios;
+using Domain.DataAccess;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,28 +10,53 @@ using System.Threading.Tasks;
 
 namespace Data_Access.Repositorios
 {
-    public class RepositorioEcosistemaMarino : Repositorio<EcosistemaMarino>, IRepositorioEcosistemaMarino {
+    public class RepositorioEcosistemaMarino<EcosistemaMarino> :  IRepositorioEcosistemaMarino<EcosistemaMarino>
+    {
 
-        public RepositorioEcosistemaMarino(MiContexto context) {
-            Context = context;
-        }
+        private IRestContext<EcosistemaMarino> _restContext;
 
-        public EcosistemaMarino GetById(int id)
+        public RepositorioEcosistemaMarino(IRestContext<EcosistemaMarino> restContext)
         {
-            return Context.Ecosistemas.Include(em => em.EstadoConservacion).FirstOrDefault(ec => ec.EcosistemaMarinoId == id);
+            _restContext = restContext;
         }
 
-        public EcosistemaMarino GetEcosistemaByName(string nombre) {
-            EcosistemaMarino eco = Context.Ecosistemas.FirstOrDefault(e => e.Nombre == nombre);
+        public IEnumerable<EcosistemaMarino> GetById(int id)
+        {
+            string filters = "?" + id;
+            IEnumerable<EcosistemaMarino> entity = _restContext.GetAll(filters).GetAwaiter().GetResult();
+            return entity;
+        }
 
-            return eco;
+        public IEnumerable<EcosistemaMarino> GetEcosistemaByName(string nombre) {
+            string filters = "?" + nombre;
+            IEnumerable<EcosistemaMarino> entity = _restContext.GetAll(filters).GetAwaiter().GetResult();
+            return entity;
         }
 
         public IEnumerable<EcosistemaMarino > GetAllEcosistemas() {
-            return Context.Set<EcosistemaMarino>()
-                .Include(em => em.EstadoConservacion)
-                //.Include(em => em.EcosistemaAmenazas)
-                .ToList();
+            string filters = "?" ;
+            IEnumerable<EcosistemaMarino> entity = _restContext.GetAll(filters).GetAwaiter().GetResult();
+            return entity;
+        }
+
+        public EcosistemaMarino Add(EcosistemaMarino entity)
+        {
+            return _restContext.Add(entity).GetAwaiter().GetResult();
+        }
+
+        public void Update(EcosistemaMarino entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(EcosistemaMarino entity)
+        {
+            _restContext.Remove(entity).GetAwaiter().GetResult();
+        }
+
+        public IEnumerable<EcosistemaMarino> GetAll()
+        {
+            throw new NotImplementedException();
         }
     }
 }

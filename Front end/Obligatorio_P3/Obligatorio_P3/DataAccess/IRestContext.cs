@@ -12,6 +12,6 @@ namespace Domain.DataAccess
         Task<T> GetById(int id);
         Task<T> Add(T entity);
         Task<bool> Update(int id, T entity);
-        Task<bool> Remove(int id);
+        Task<bool> Remove(T entity);
     }
 }

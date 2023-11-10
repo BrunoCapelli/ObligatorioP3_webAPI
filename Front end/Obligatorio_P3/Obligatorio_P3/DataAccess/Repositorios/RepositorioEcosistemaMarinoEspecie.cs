@@ -1,4 +1,5 @@
 ﻿using Data_Access.IRepositorios;
+using Domain.DataAccess;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,34 +10,37 @@ using System.Threading.Tasks;
 
 namespace Data_Access.Repositorios
 {
-    public class RepositorioEcosistemaMarinoEspecie : Repositorio<RepositorioEcosistemaMarinoEspecie>, IRepositorioEcosistemaMarinoEspecie
+    public class RepositorioEcosistemaMarinoEspecie : IRepositorioEcosistemaMarinoEspecie<EcosistemaMarinoEspecie>
     {
-        public RepositorioEcosistemaMarinoEspecie(MiContexto contexto)
+        private IRestContext<EcosistemaMarinoEspecie> _restContext;
+
+        public RepositorioEcosistemaMarinoEspecie(IRestContext<EcosistemaMarinoEspecie> restContext)
         {
-            Context = contexto;
+            _restContext = restContext;
         }
 
         public EcosistemaMarinoEspecie Add(EcosistemaMarinoEspecie entity)
         {
-             Context.Set<EcosistemaMarinoEspecie>().Add(entity);
+            _restContext.Add(entity).GetAwaiter().GetResult();
             return entity;
         }
 
-        public EcosistemaMarino GetByEcosistemaId(int id)
+        public IEnumerable<EcosistemaMarinoEspecie> GetByEcosistemaId(int id) // Hay que cambiar filtros para que funque
         {
-           return Context.Ecosistemas.FirstOrDefault(em => em.EcosistemaMarinoId == id);
+            string filters = "?" + id;
+            IEnumerable<EcosistemaMarinoEspecie> entity = _restContext.GetAll(filters).GetAwaiter().GetResult();
+            return entity;
         }
 
-        public List<EcosistemaMarinoEspecie> GetEspeciesByEcosistemaId(int id)
+        public IEnumerable<EcosistemaMarinoEspecie> GetEspeciesByEcosistemaId(int id) // Hay que cambiar filtros para que funque
         {
-            return Context.Set<EcosistemaMarinoEspecie>().Where(em => em.EcosistemaMarinoId.Equals(id))
-                .Include(em=> em.Especie)
-                .Include(em=> em.Especie.EstadoConservacion)
-                .ToList();
+            string filters = "?" + id;
+            IEnumerable<EcosistemaMarinoEspecie> entity = _restContext.GetAll(filters).GetAwaiter().GetResult();
+            return entity;
         }
         
 
-        public Especie GetByEspecieId(int id)
+        public Especie GetByEspecieId(int id) // Hay que cambiar filtros para que funque
         {
             return Context.Especies.FirstOrDefault(em => em.EspecieId == id);
         }
