@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Data_Access.Repositorios
 {
-    public class RepositorioAudit : IRepositorioAudit
+    public class RepositorioAudit<Audit> : IRepositorioAudit<Audit>
     {
         private IRestContext<Audit> _restContext;
 
@@ -19,5 +19,24 @@ namespace Data_Access.Repositorios
             _restContext = restContext;
         }
 
+        public Audit Add(Audit entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Audit> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(Audit entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Audit entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
