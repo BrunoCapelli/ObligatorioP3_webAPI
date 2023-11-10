@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Data_Access.IRepositorios
 {
-    public interface IRepositorioUsuario: IRepositorio<Usuario>
+    public interface IRepositorioUsuario<Usuario> : IRepositorio<Usuario>
     {
         Usuario GetUsuarioByAlias(string alias);
         Usuario GetUsuarioById(int id);

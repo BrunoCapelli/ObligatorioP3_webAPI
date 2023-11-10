@@ -1,4 +1,5 @@
 ﻿using Data_Access.IRepositorios;
+using Domain.DataAccess;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,20 +9,22 @@ using System.Threading.Tasks;
 
 namespace Data_Access.Repositorios
 {
-    public class RepositorioEcosistemaAmenaza: Repositorio<EcosistemaAmenaza>,IRepositorioEcosistemaAmenaza
+    public class RepositorioEcosistemaAmenaza<EcosistemaAmenaza> : IRepositorioEcosistemaAmenaza<EcosistemaAmenaza>
     {
-        public RepositorioEcosistemaAmenaza(MiContexto contexto)
+        private IRestContext<EcosistemaAmenaza> _restContext;
+        public RepositorioEcosistemaAmenaza(IRestContext<EcosistemaAmenaza> restContext)
         {
-            Context = contexto;
+            _restContext = restContext;
         }
         public EcosistemaAmenaza Add(EcosistemaAmenaza entity)
         {
-            Context.Set<EcosistemaAmenaza>().Add(entity);
+            _restContext.Add(entity).GetAwaiter().GetResult();
             return entity;
         }
         public List<EcosistemaAmenaza> GetByEcosistemaId(int id)
         {
-            List<EcosistemaAmenaza> entity = Context.Set<EcosistemaAmenaza>().Where(ea => ea.EcosistemaMarinoId == id).ToList();
+
+            List<EcosistemaAmenaza> entity = _restContext.GetAll()
             return entity;
         }
 

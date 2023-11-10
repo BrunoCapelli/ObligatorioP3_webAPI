@@ -7,7 +7,7 @@ using Domain.Entities;
 
 namespace Data_Access.IRepositorios
 {
-    public interface IRepositorioPais : IRepositorio<Pais>
+    public interface IRepositorioPais<Pais> : IRepositorio<Pais>
     {
         Pais GetPais(int id);
     }

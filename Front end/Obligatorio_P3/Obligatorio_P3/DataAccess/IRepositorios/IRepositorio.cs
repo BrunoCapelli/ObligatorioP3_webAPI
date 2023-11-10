@@ -11,7 +11,6 @@ namespace Data_Access.IRepositorios
         void Update(T entity);
         void Remove(T entity);
         IEnumerable<T> GetAll();
-        void Save();
 
     }
 }

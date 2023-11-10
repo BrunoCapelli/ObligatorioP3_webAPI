@@ -7,7 +7,7 @@ using Domain.Entities;
 
 namespace Data_Access.IRepositorios
 {
-    public interface IRepositorioEspecie: IRepositorio<Especie>
+    public interface IRepositorioEspecie<Especie>: IRepositorio<Especie>
     {
         IEnumerable<Especie> GetAllEspecies();
         Especie GetById(int id);
