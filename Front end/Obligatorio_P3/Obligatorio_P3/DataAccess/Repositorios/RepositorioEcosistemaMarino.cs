@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Data_Access.Repositorios
 {
-    public class RepositorioEcosistemaMarino<EcosistemaMarino> :  IRepositorioEcosistemaMarino<EcosistemaMarino>
+    public class RepositorioEcosistemaMarino:  IRepositorioEcosistemaMarino
     {
 
         private IRestContext<EcosistemaMarino> _restContext;

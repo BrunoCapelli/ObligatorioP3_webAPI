@@ -11,6 +11,6 @@ namespace Data_Access.IRepositorios
     {
         Especie GetByEspecieId(int id);
         IEnumerable<EcosistemaMarinoEspecie> GetByEcosistemaId(int id);
-        List<EcosistemaMarinoEspecie> GetEspeciesByEcosistemaId(int id);
+        IEnumerable<EcosistemaMarinoEspecie> GetEspeciesByEcosistemaId(int id);
     }
 }

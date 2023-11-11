@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Data_Access.Repositorios
 {
-    public class RepositorioEcosistemaMarinoEspecie : IRepositorioEcosistemaMarinoEspecie<EcosistemaMarinoEspecie>
+    public class RepositorioEcosistemaMarinoEspecie : IRepositorioEcosistemaMarinoEspecie
     {
         private IRestContext<EcosistemaMarinoEspecie> _restContext;
 
@@ -55,12 +55,6 @@ namespace Data_Access.Repositorios
             throw new NotImplementedException();
         }
 
-        IEnumerable<EcosistemaMarinoEspecie> IRepositorio<EcosistemaMarinoEspecie>.GetAll()
-        {
-            return Context.Set<EcosistemaMarinoEspecie>()
-                .Include(eme => eme.EcosistemaMarino)
-                .Include(eme => eme.Especie)
-                .ToList();
-        }
+        
     }
 }

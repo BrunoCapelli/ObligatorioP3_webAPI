@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Data_Access.Repositorios
 {
-    public class RepositorioEcosistemaAmenaza<EcosistemaAmenaza> : IRepositorioEcosistemaAmenaza<EcosistemaAmenaza>
+    public class RepositorioEcosistemaAmenaza : IRepositorioEcosistemaAmenaza
     {
         private IRestContext<EcosistemaAmenaza> _restContext;
         public RepositorioEcosistemaAmenaza(IRestContext<EcosistemaAmenaza> restContext)
@@ -44,9 +44,6 @@ namespace Data_Access.Repositorios
             throw new NotImplementedException();
         }
 
-        List<EcosistemaAmenaza> IRepositorioEcosistemaAmenaza<EcosistemaAmenaza>.GetByEcosistemaId(int id)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }
