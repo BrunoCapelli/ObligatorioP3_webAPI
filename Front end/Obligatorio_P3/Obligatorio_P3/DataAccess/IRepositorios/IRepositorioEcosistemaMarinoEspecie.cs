@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Data_Access.IRepositorios
 {
-    public interface IRepositorioEcosistemaMarinoEspecie<EcosistemaMarinoEspecie>: IRepositorio<EcosistemaMarinoEspecie>
+    public interface IRepositorioEcosistemaMarinoEspecie: IRepositorio<EcosistemaMarinoEspecie>
     {
         Especie GetByEspecieId(int id);
         IEnumerable<EcosistemaMarinoEspecie> GetByEcosistemaId(int id);

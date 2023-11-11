@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Data_Access.IRepositorios
 {
-    public interface IRepositorioAudit<Audit> : IRepositorio<Audit>
+    public interface IRepositorioAudit : IRepositorio<Audit>
     {
        
     }
