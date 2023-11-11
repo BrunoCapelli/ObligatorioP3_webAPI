@@ -42,12 +42,19 @@ namespace Data_Access.Repositorios
 
         public Especie GetByEspecieId(int id) // Hay que cambiar filtros para que funque
         {
-            return Context.Especies.FirstOrDefault(em => em.EspecieId == id);
+            string filters = "?" + id;
+            Especie esp = null;
+            IEnumerable<EcosistemaMarinoEspecie> entity = _restContext.GetAll(filters).GetAwaiter().GetResult();
+            foreach(var e in entity)
+            {
+                esp = e.Especie;
+            }
+            return esp;
         }
 
         public void Remove(EcosistemaMarinoEspecie entity)
         {
-            Context.Set<EcosistemaMarinoEspecie>().Remove(entity);
+            _restContext.Remove(entity).GetAwaiter().GetResult();
         }
 
         public void Update(EcosistemaMarinoEspecie entity)
@@ -55,6 +62,11 @@ namespace Data_Access.Repositorios
             throw new NotImplementedException();
         }
 
-        
+        public IEnumerable<EcosistemaMarinoEspecie> GetAll()
+        {
+            string filters = "?";
+            IEnumerable<EcosistemaMarinoEspecie> entity = _restContext.GetAll(filters).GetAwaiter().GetResult();
+            return entity;
+        }
     }
 }
