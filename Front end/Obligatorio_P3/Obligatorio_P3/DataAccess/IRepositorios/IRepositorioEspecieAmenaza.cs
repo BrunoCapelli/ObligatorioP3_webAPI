@@ -9,6 +9,6 @@ namespace Data_Access.IRepositorios
 {
     public interface IRepositorioEspecieAmenaza: IRepositorio<EspecieAmenaza>
     {
-        List<EspecieAmenaza> GetByEspecieId(int id);
+        IEnumerable<EspecieAmenaza> GetByEspecieId(int id);
     }
 }

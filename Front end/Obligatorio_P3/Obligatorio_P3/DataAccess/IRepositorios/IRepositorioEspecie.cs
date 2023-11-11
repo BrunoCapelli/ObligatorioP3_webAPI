@@ -11,8 +11,8 @@ namespace Data_Access.IRepositorios
     {
         IEnumerable<Especie> GetAllEspecies();
         Especie GetById(int id);
-        List<Especie> GetEspecieByName(string name);
-        List<Especie> GetEspecieByGradoConservacion(int grado);
-        List<Especie> GetEspecieByPeso(int pesoDesde, int pesoHasta);
+        IEnumerable<Especie> GetEspecieByName(string name);
+        IEnumerable<Especie> GetEspecieByGradoConservacion(int grado);
+        IEnumerable<Especie> GetEspecieByPeso(int pesoDesde, int pesoHasta);
     }
 }

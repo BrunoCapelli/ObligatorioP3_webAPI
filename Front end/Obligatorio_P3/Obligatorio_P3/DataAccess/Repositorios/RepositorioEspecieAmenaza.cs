@@ -1,4 +1,5 @@
 ﻿using Data_Access.IRepositorios;
+using Domain.DataAccess;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,17 +9,37 @@ using System.Threading.Tasks;
 
 namespace Data_Access.Repositorios
 {
-    public class RepositorioEspecieAmenaza: Repositorio<EspecieAmenaza>, IRepositorioEspecieAmenaza
+    public class RepositorioEspecieAmenaza: IRepositorioEspecieAmenaza
     {
-        public RepositorioEspecieAmenaza(MiContexto context)
+
+        private IRestContext<EspecieAmenaza> _restContext;
+
+        public RepositorioEspecieAmenaza(IRestContext<EspecieAmenaza> restContext)
         {
-            Context = context;
+            _restContext = restContext;
         }
 
-        public List<EspecieAmenaza> GetByEspecieId(int id)
+        public EspecieAmenaza Add(EspecieAmenaza entity) {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<EspecieAmenaza> GetAll() {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<EspecieAmenaza> GetByEspecieId(int id)
         {
-            List<EspecieAmenaza> entity = Context.Set<EspecieAmenaza>().Where(e => e.EspecieId == id).ToList();
+            string filters = "?id=" + id.ToString();
+            IEnumerable<EspecieAmenaza> entity = _restContext.GetAll(filters).GetAwaiter().GetResult();
             return entity;
+        }
+
+        public void Remove(EspecieAmenaza entity) {
+            throw new NotImplementedException();
+        }
+
+        public void Update(EspecieAmenaza entity) {
+            throw new NotImplementedException();
         }
     }
 }

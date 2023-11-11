@@ -1,4 +1,5 @@
 ﻿using Data_Access.IRepositorios;
+using Domain.DataAccess;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,44 +10,58 @@ using System.Threading.Tasks;
 
 namespace Data_Access.Repositorios
 {
-    public class RepositorioEspecie: Repositorio<Especie>, IRepositorioEspecie
+    public class RepositorioEspecie: IRepositorioEspecie
     {
-        public RepositorioEspecie(MiContexto context) 
+        private IRestContext<Especie> _restContext;
+
+        public RepositorioEspecie(IRestContext<Especie> restContext) 
         { 
-            Context = context;
+            _restContext = restContext;
         }
 
-        public IEnumerable<Especie> GetAllEspecies() { 
-            return Context.Set<Especie>().Include(es => es.EstadoConservacion).ToList();
+        public IEnumerable<Especie> GetAllEspecies() {
+            string filters = "";
+            return _restContext.GetAll(filters).GetAwaiter().GetResult();
         }
 
         public Especie GetById(int id)
         {
-            return Context.Especies.Include(e => e.EstadoConservacion).FirstOrDefault(e => e.EspecieId == id);
+            return _restContext.GetById(id).GetAwaiter().GetResult();
         }
 
-        public List<Especie> GetEspecieByName(string name)
+        public IEnumerable<Especie> GetEspecieByName(string name)
         {
-            return Context.Especies.Where(e=> e.NombreCientifico.Contains(name))
-                .Include(e => e.EstadoConservacion)
-                .Include(e => e.EcosistemasHabitados)
-                .ToList();
+            string filters = "?name=" + name;
+            return _restContext.GetAll(filters).GetAwaiter().GetResult();
         }
-        public List<Especie> GetEspecieByGradoConservacion(int grado)
+        public IEnumerable<Especie> GetEspecieByGradoConservacion(int grado)
         {
-            return Context.Especies.Where(e => e.EstadoConservacion.EstadoConservacionId.Equals(grado))
-                .Include(e => e.EstadoConservacion)
-                .Include(e => e.EcosistemasHabitados)
-                .ToList();
+            string filters = "?grado=" + grado.ToString();
+            return _restContext.GetAll(filters).GetAwaiter().GetResult();
         }
 
-        public List<Especie> GetEspecieByPeso(int pesoDesde, int pesoHasta)
+        public IEnumerable<Especie> GetEspecieByPeso(int pesoDesde, int pesoHasta)
         {
-            return Context.Especies.Where(e => e.PesoMin >= pesoDesde && e.PesoMax <= pesoHasta)
-                .Include(e => e.EstadoConservacion)
-                .Include(e => e.EcosistemasHabitados)
-                .ToList();
+            string filters = "?pesoDesde=" + pesoDesde.ToString() + "?pesoHasta" + pesoHasta.ToString() ;
+            return _restContext.GetAll(filters).GetAwaiter().GetResult();
         }
 
+        public Especie Add(Especie entity) {
+            Especie especie = _restContext.Add(entity).GetAwaiter().GetResult();
+            return especie;
+        }
+
+        public void Update(Especie entity) {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(Especie entity) {
+            _restContext.Remove(entity).GetAwaiter().GetResult();
+        }
+
+        public IEnumerable<Especie> GetAll() {
+            string filters = "";
+            return _restContext.GetAll(filters).GetAwaiter().GetResult();
+        }
     }
 }
