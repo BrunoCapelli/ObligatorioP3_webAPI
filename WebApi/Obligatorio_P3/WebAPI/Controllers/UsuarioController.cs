@@ -25,67 +25,41 @@ namespace WebAPI.Controllers
             _configuration = configuration;
         }
 
-        //[Authorize]
-        //[HttpGet]
-        //public IActionResult FindUser(string user, string password)
-        //{
-        //    UsuarioDTO userDTO = new UsuarioDTO() { Alias = user, Password =password };
-        //    var userFound = _servicioUsuario.FindUser(userDTO);
+        //Restringirlo al Admin
+        [HttpPost("Register")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        public IActionResult Register([Required] string Alias, [Required] string Password, [Required] string PassConfirm) {
+            try {
+                if (!String.IsNullOrEmpty(Alias) && !String.IsNullOrEmpty(Password) && !String.IsNullOrEmpty(PassConfirm)) {
+                    if (Password.ToLower() == PassConfirm.ToLower()) {
+                        UsuarioDTO usuario = new UsuarioDTO { Alias = Alias, Password = Password };
+                        try {
+                            usuario = _servicioUsuario.Add(usuario);
+                            //_servicioAudit.Log(HttpContext.Session.GetString("email") ?? "NULL", usuario.UsuarioDTOId, "Usuario (Add)");
+                            return Ok("El usuario se creó correctamente!");
 
-        //    if(userFound == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    else
-        //    {
-        //        return Ok(userFound);
-        //    }
-        //}
-
-        
-        //[HttpPost("Register")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status409Conflict)]
-        //public IActionResult Register([Required] string Alias, [Required] string Password, [Required] string PassConfirm)
-        //{
-        //    try
-        //    {
-        //        if (!String.IsNullOrEmpty(Alias) && !String.IsNullOrEmpty(Password) && !String.IsNullOrEmpty(PassConfirm))
-        //        {
-        //            if (Password.ToLower() == PassConfirm.ToLower())
-        //            {
-        //                UsuarioDTO usuario = new UsuarioDTO { Alias = Alias, Password = Password };
-        //                try
-        //                {
-        //                    usuario = _servicioUsuario.Add(usuario);
-        //                    //_servicioAudit.Log(HttpContext.Session.GetString("email") ?? "NULL", usuario.UsuarioDTOId, "Usuario (Add)");
-        //                    return Ok("El usuario se creó correctamente!");
-
-        //                }
-        //                catch (Exception ex)
-        //                {
-        //                    return Conflict(ex.Message);
-        //                }
-        //            }
-        //            else
-        //            {
-        //                return BadRequest("Las contraseñas deben coincidir");
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return BadRequest("Debe completar todos los campos");
-        //        }
+                        }
+                        catch (Exception ex) {
+                            return Conflict(ex.Message);
+                        }
+                    }
+                    else {
+                        return BadRequest("Las contraseñas deben coincidir");
+                    }
+                }
+                else {
+                    return BadRequest("Debe completar todos los campos");
+                }
 
 
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest("Error: " + ex.Message);
-        //    }
-        //}
+            }
+            catch (Exception ex) {
+                return BadRequest("Error: " + ex.Message);
+            }
+        }
 
 
 
