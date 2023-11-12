@@ -10,5 +10,6 @@ namespace Data_Access.IRepositorios
     public interface IRepositorioPais : IRepositorio<Pais>
     {
         Pais GetPais(int id);
+        Pais GetByName(string name);
     }
 }

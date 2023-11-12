@@ -22,5 +22,11 @@ namespace Data_Access.Repositorios
             return p;
 
         }
+
+        public Pais GetByName(string name)
+        {
+            Pais p = Context.Paises.FirstOrDefault(p => p.Nombre == name);
+            return p;
+        }
     }
 }
