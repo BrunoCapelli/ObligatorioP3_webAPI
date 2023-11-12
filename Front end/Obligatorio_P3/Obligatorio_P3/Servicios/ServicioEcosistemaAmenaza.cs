@@ -43,7 +43,7 @@ namespace Servicios.Servicios
 
                 EcosistemaAmenaza newEme = new EcosistemaAmenaza(ecosistema, amenaza);
                 _repositorioEAmenaza.Add(newEme);
-                _repositorioEcosistemaMarino.Save();
+                //_repositorioEcosistemaMarino.Save();
             }
             else
             {

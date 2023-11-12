@@ -19,10 +19,10 @@ namespace WebApp
             //Añado que el builder de Session
             builder.Services.AddSession();
 
-            builder.Services.AddDbContext<DbContext, MiContexto>(options =>
+            /*builder.Services.AddDbContext<DbContext, MiContexto>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("Connection"));
-            });
+            });*/
 
             // Scopes Servicios
 

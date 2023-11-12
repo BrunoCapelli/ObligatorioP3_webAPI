@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Data_Access.Repositorios
 {
-    public class RepositorioAudit<Audit> : IRepositorioAudit<Audit>
+    public class RepositorioAudit: IRepositorioAudit
     {
         private IRestContext<Audit> _restContext;
 

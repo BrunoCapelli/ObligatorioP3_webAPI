@@ -22,7 +22,7 @@ namespace Servicios.Servicios
             DateTime fecha = DateTime.Now;
             Audit audit = new Audit(user,fecha, idEntidadModificada, TipoEntidad);
             _repoAudit.Add(audit);
-            _repoAudit.Save();
+            //_repoAudit.Save();
         }
 
     }

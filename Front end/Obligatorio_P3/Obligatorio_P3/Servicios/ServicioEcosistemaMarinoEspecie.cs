@@ -60,7 +60,7 @@ namespace Servicios.Servicios
                     _repositorioEspecie.Update(especie); // Luego de asociado, actualizo el EcosistemaID en la base
 
                     _repositorioEcosistemaMarinoEspecie.Add(newEme);
-                    _repositorioEcosistemaMarino.Save();
+                    //_repositorioEcosistemaMarino.Save();
 
 
                 }
@@ -100,10 +100,10 @@ namespace Servicios.Servicios
             //Especie e = GetEspecieById(especieId);
 
             EcosistemaMarino eM = _repositorioEcosistemaMarino.GetById(ecosistemaId);
-            List<EcosistemaAmenaza> amenazasEco = _repositorioEcosistemaAmenaza.GetByEcosistemaId(ecosistemaId);
+            IEnumerable<EcosistemaAmenaza> amenazasEco = _repositorioEcosistemaAmenaza.GetByEcosistemaId(ecosistemaId);
 
             Especie e = _repositorioEspecie.GetById(especieId);
-            List<EspecieAmenaza> amenazasE = _repositorioEspecieAmenaza.GetByEspecieId(especieId);
+            IEnumerable<EspecieAmenaza> amenazasE = _repositorioEspecieAmenaza.GetByEspecieId(especieId);
 
             // Chequeo que el estado de conservación del ecosistema no sea peor que el de la especie que se le está asociando
             if (eM.EstadoConservacion.ValorDesde >= e.EstadoConservacion.ValorDesde)

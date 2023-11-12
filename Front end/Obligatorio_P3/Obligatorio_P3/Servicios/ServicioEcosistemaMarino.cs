@@ -41,7 +41,7 @@ namespace Servicios.Servicios
 
                 EcosistemaMarino newEco = _repoEcosistemaMarino.Add(ecosistema);
                
-                _repoEcosistemaMarino.Save();
+                //_repoEcosistemaMarino.Save();
                 EcosistemaMarinoDTO newECODto = new EcosistemaMarinoDTO(newEco);
                 return newECODto;
 
@@ -103,7 +103,7 @@ namespace Servicios.Servicios
             if(contador == 0)
             {
                 _repoEcosistemaMarino.Remove(eco);
-                _repoEcosistemaMarino.Save();
+                //_repoEcosistemaMarino.Save();
 
             }
             else

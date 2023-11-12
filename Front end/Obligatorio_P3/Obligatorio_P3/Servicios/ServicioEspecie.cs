@@ -39,7 +39,7 @@ namespace Servicios.Servicios
                 Especie newEspecie = new Especie(especieDTO, estado);
 
                 Especie especieAdded = _repoEspecie.Add(newEspecie);
-                _repoEspecie.Save();
+                //_repoEspecie.Save();
 
                 EspecieDTO especieDTO1 = new EspecieDTO(especieAdded);
                 return especieDTO1;
@@ -196,7 +196,7 @@ namespace Servicios.Servicios
             }
 
             _repoEspecie.Remove(esp);
-            _repoEspecie.Save();
+            //_repoEspecie.Save();
   
         }
     }

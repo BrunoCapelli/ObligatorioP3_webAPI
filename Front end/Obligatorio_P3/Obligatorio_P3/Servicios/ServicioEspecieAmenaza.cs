@@ -47,7 +47,7 @@ namespace Servicios.Servicios
 
                 EspecieAmenaza especieAmenaza = new EspecieAmenaza(amenaza, especie);
                 _repositorioEspecieAmenaza.Add(especieAmenaza);
-                _repositorioEspecieAmenaza.Save();
+                //_repositorioEspecieAmenaza.Save();
                 EspecieAmenazaDTO eaDTO = new EspecieAmenazaDTO(especieAmenaza);
                 return eaDTO;
 

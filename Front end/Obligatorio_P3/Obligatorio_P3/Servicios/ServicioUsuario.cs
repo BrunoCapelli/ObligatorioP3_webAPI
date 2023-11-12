@@ -36,7 +36,7 @@ namespace Servicios.Servicios
                     DateTime fecha = DateTime.Now;
                     usuario.FechaAlta = fecha;
                     Usuario newUser = _repoUsuario.Add(usuario);
-                    _repoUsuario.Save();
+                    //_repoUsuario.Save();
 
                     
 

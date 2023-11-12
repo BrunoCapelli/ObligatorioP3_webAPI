@@ -31,7 +31,9 @@ namespace Data_Access.Repositorios
 
         public IEnumerable<EcosistemaAmenaza> GetByEcosistemaId(int id)
         {
-            throw new NotImplementedException();
+            string filters = "?ecosistemaID="+id;
+            IEnumerable<EcosistemaAmenaza> entity = _restContext.GetAll(filters).GetAwaiter().GetResult();
+            return entity;
         }
 
         public void Remove(EcosistemaAmenaza entity)

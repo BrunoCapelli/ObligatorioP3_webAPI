@@ -20,17 +20,28 @@ namespace Data_Access.Repositorios
             _restContext = restContext;
         }
 
-        public IEnumerable<EcosistemaMarino> GetById(int id)
+        public EcosistemaMarino GetById(int id)
         {
+            EcosistemaMarino eco = new EcosistemaMarino();
             string filters = "?" + id;
             IEnumerable<EcosistemaMarino> entity = _restContext.GetAll(filters).GetAwaiter().GetResult();
-            return entity;
+            foreach(var e in entity)
+            {
+                eco = e;
+            }
+            return eco;
         }
 
-        public IEnumerable<EcosistemaMarino> GetEcosistemaByName(string nombre) {
-            string filters = "?" + nombre;
+        public EcosistemaMarino GetEcosistemaByName(string nombre) {
+
+            EcosistemaMarino eco = new EcosistemaMarino();
+            string filters = "?name=" + nombre;
             IEnumerable<EcosistemaMarino> entity = _restContext.GetAll(filters).GetAwaiter().GetResult();
-            return entity;
+            foreach (var e in entity)
+            {
+                eco = e;
+            }
+            return eco;
         }
 
         public IEnumerable<EcosistemaMarino > GetAllEcosistemas() {
