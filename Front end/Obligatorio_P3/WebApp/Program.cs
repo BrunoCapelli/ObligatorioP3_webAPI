@@ -1,6 +1,8 @@
 using Data_Access;
 using Data_Access.IRepositorios;
 using Data_Access.Repositorios;
+using Domain.DataAccess;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Servicios.IServicios;
 using Servicios.Servicios;
@@ -19,15 +21,20 @@ namespace WebApp
             //Añado que el builder de Session
             builder.Services.AddSession();
 
-            /*builder.Services.AddDbContext<DbContext, MiContexto>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("Connection"));
-            });*/
+
+            // Inyeccion de RestContext
+
+            builder.Services.AddScoped<IRestContext<Amenaza>>(provider => new RestContext<Amenaza>(builder.Configuration.GetConnectionString("AmenazaUrl")));
+            builder.Services.AddScoped<IRestContext<Especie>>(provider => new RestContext<Especie>(builder.Configuration.GetConnectionString("EspecieUrl")));
+            builder.Services.AddScoped<IRestContext<EcosistemaMarino>>(provider => new RestContext<EcosistemaMarino>(builder.Configuration.GetConnectionString("EcosistemaUrl")));
+            builder.Services.AddScoped<IRestContext<EstadoConservacion>>(provider => new RestContext<EstadoConservacion>(builder.Configuration.GetConnectionString("EstadoConservacionUrl")));
+            builder.Services.AddScoped<IRestContext<Pais>>(provider => new RestContext<Pais>(builder.Configuration.GetConnectionString("PaisUrl")));
+            builder.Services.AddScoped<IRestContext<Usuario>>(provider => new RestContext<Usuario>(builder.Configuration.GetConnectionString("UsuarioUrl")));
 
             // Scopes Servicios
 
-            
-            builder.Services.AddScoped(typeof(IServicioAudit), typeof(ServicioAudit));
+
+            //builder.Services.AddScoped(typeof(IServicioAudit), typeof(ServicioAudit));
             builder.Services.AddScoped(typeof(IServicioAmenaza), typeof(ServicioAmenaza));
             builder.Services.AddScoped(typeof(IServicioEspecie), typeof(ServicioEspecie));
             builder.Services.AddScoped(typeof(IServicioEstadoConservacion), typeof(ServicioEstadoConservacion));
@@ -39,7 +46,7 @@ namespace WebApp
             builder.Services.AddScoped(typeof(IServicioEspecieAmenaza), typeof(ServicioEspecieAmenaza));
 
             
-            builder.Services.AddScoped(typeof(IRepositorioAudit), typeof(RepositorioAudit));
+            //builder.Services.AddScoped(typeof(IRepositorioAudit), typeof(RepositorioAudit));
             builder.Services.AddScoped(typeof(IRepositorioAmenaza), typeof(RepositorioAmenaza));
             builder.Services.AddScoped(typeof(IRepositorioEspecieAmenaza), typeof(RepositorioEspecieAmenaza));
             builder.Services.AddScoped(typeof(IRepositorioEspecie), typeof(RepositorioEspecie));

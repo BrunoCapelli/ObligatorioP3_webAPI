@@ -16,7 +16,7 @@ namespace Domain.DataAccess
         // Clase genérica RestContext que implementa la interfaz IRestContext<T>.
 
         private readonly HttpClient httpClient;
-        private readonly string apiUrl = "";
+        private readonly string apiUrl = "https://localhost:7002/api/";
 
         // Campo privado para almacenar una instancia de HttpClient y la URL base de la API.
 
