@@ -15,11 +15,11 @@ namespace Servicios.Servicios
     public class ServicioUsuario: IServicioUsuario
     {
         private IRepositorioUsuario _repoUsuario;
-        private IServicioAudit _servicioAudit;
-        public ServicioUsuario(IRepositorioUsuario repoUsuario, IServicioAudit servicioAudit)
+        //private IServicioAudit _servicioAudit;
+        public ServicioUsuario(IRepositorioUsuario repoUsuario/*, IServicioAudit servicioAudit*/)
         {
             _repoUsuario = repoUsuario;
-            _servicioAudit = servicioAudit;
+            //_servicioAudit = servicioAudit;
         }
 
         public UsuarioDTO Add(UsuarioDTO userDTO)

@@ -31,6 +31,11 @@ namespace WebApp
             builder.Services.AddScoped<IRestContext<Pais>>(provider => new RestContext<Pais>(builder.Configuration.GetConnectionString("PaisUrl")));
             builder.Services.AddScoped<IRestContext<Usuario>>(provider => new RestContext<Usuario>(builder.Configuration.GetConnectionString("UsuarioUrl")));
 
+            builder.Services.AddScoped<IRestContext<EcosistemaMarinoEspecie>>(provider => new RestContext<EcosistemaMarinoEspecie>(builder.Configuration.GetConnectionString("EcosistemaEspecieUrl")));
+            builder.Services.AddScoped<IRestContext<EspecieAmenaza>>(provider => new RestContext<EspecieAmenaza>(builder.Configuration.GetConnectionString("EspecieAmenazaUrl")));
+            builder.Services.AddScoped<IRestContext<EcosistemaAmenaza>>(provider => new RestContext<EcosistemaAmenaza>(builder.Configuration.GetConnectionString("EcosistemaAmenazaUrl")));
+
+
             // Scopes Servicios
 
 
