@@ -15,6 +15,7 @@ namespace Domain.DTO
         public int UsuarioDTOId { get; set; }
         public string Alias { get; set; }
         public string Password { get; set; }
+        public string AccessToken { get; set; }
         public DateTime FechaAlta { get; set; }
         public UsuarioDTO() { }
 

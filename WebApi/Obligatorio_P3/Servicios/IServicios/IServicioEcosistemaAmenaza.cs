@@ -9,6 +9,7 @@ namespace Servicios.IServicios
 {
     public  interface IServicioEcosistemaAmenaza: IServicio<EcosistemaAmenaza>
     {
-        void Add(int AmenazaId, int EcosistemaId); 
+        void Add(int AmenazaId, int EcosistemaId);
+        IEnumerable<EcosistemaAmenaza> GetAll();
     }
 }

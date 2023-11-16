@@ -1,4 +1,5 @@
 ﻿using Domain.DTO;
+using Domain.Entities;
 using Domain.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -15,22 +16,30 @@ namespace WebAPI.Controllers {
             _servicioEcosistemaAmenaza = servicioEcostemaAmenaza;
         }
 
-        [Authorize]
+        
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public IActionResult Post([FromBody] int amenazaId, int ecosistemaId)  
+        public IActionResult Post(EcosistemaAmenaza entity)  
         { 
             try {
-                _servicioEcosistemaAmenaza.Add(amenazaId, ecosistemaId);
-                return Ok();
+                _servicioEcosistemaAmenaza.Add(entity.AmenazaId, entity.EcosistemaMarinoId);
+                return Ok(entity);
             }
             catch (ElementoNoValidoException ex) {
                 return BadRequest(ex.ToString());
             
             }
         
+        }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            IEnumerable<EcosistemaAmenaza> especies = _servicioEcosistemaAmenaza.GetAll();
+            return Ok(especies);
+
         }
     }
 }

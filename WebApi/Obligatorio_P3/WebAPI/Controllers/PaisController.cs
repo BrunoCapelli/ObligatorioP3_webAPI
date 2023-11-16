@@ -25,6 +25,14 @@ namespace WebAPI.Controllers
             return Ok(paises);
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            PaisDTO pais = _servicioPais.GetPais(id);
+
+            return Ok(pais);
+        }
+
 
 
         [HttpPost]

@@ -57,7 +57,11 @@ namespace Servicios.Servicios
             throw new NotImplementedException();
         }
 
-       
+        public IEnumerable<EcosistemaAmenaza> GetAll()
+        {
+            IEnumerable<EcosistemaAmenaza> ecosistemaAmenazas = _repositorioEAmenaza.GetAll();
+            return ecosistemaAmenazas;
+        }
 
         public void Remove(int id) {
             throw new NotImplementedException();

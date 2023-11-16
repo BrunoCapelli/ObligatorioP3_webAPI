@@ -81,7 +81,10 @@ namespace WebAPI.Controllers
                     {
                         
                         string token = GenerarToken(Alias);
-                        return Ok(new { AccessToken = token});
+                        userLogged.AccessToken = token;
+                        userLogged.Password = "";
+                        userLogged.FechaAlta = DateTime.MinValue;
+                        return Ok(userLogged);
 
                     }
 

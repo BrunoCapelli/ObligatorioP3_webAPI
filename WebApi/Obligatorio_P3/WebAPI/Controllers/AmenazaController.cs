@@ -28,7 +28,7 @@ namespace WebAPI.Controllers {
             return Ok(amenazas);
         }
 
-        [HttpGet("Ecosistema/{id}")]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Get(int id) {
