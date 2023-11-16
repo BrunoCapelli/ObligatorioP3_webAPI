@@ -16,9 +16,9 @@ namespace Data_Access.Repositorios
         {
             _restContext = restContext;
         }
-        public EcosistemaAmenaza Add(EcosistemaAmenaza entity)
+        public EcosistemaAmenaza Add(EcosistemaAmenaza entity, string token)
         {
-            _restContext.Add(entity).GetAwaiter().GetResult();
+            _restContext.Add(entity, token).GetAwaiter().GetResult();
             return entity;
         }
 

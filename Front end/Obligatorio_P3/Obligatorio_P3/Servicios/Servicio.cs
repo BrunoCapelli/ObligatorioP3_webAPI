@@ -19,9 +19,9 @@ namespace Servicios.Servicios
             _repo = repo;
         }
 
-        public T Add(T entity)
+        public T Add(T entity, string token)
         {
-            return _repo.Add(entity);
+            return _repo.Add(entity, token);
         }
 
         public void Update(T entity)

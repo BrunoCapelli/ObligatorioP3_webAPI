@@ -27,7 +27,7 @@ namespace Servicios.Servicios
             _repoEcosistemaMarino = repositorioEcosistemaMarino;
         }
 
-        public EspecieDTO Add(EspecieDTO especieDTO)
+        public EspecieDTO Add(EspecieDTO especieDTO, string token)
         {
             especieDTO.Validate();
 
@@ -38,7 +38,7 @@ namespace Servicios.Servicios
 
                 Especie newEspecie = new Especie(especieDTO, estado);
 
-                Especie especieAdded = _repoEspecie.Add(newEspecie);
+                Especie especieAdded = _repoEspecie.Add(newEspecie, token);
                 //_repoEspecie.Save();
 
                 EspecieDTO especieDTO1 = new EspecieDTO(especieAdded);

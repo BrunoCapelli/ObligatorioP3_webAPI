@@ -22,7 +22,7 @@ namespace Servicios.Servicios
             //_servicioAudit = servicioAudit;
         }
 
-        public UsuarioDTO Add(UsuarioDTO userDTO)
+        public UsuarioDTO Add(UsuarioDTO userDTO, string token)
         {
             userDTO.Validate();
             UsuarioDTO foundUserDTO = FindUser(userDTO);
@@ -35,7 +35,7 @@ namespace Servicios.Servicios
                     usuario.Password = HashPassword(usuario.Password); // Guardo la contraseña hasheada. Si quiero ver si es correcta, hasheo la que entra y la comparo con la guardada en la base
                     DateTime fecha = DateTime.Now;
                     usuario.FechaAlta = fecha;
-                    Usuario newUser = _repoUsuario.Add(usuario);
+                    Usuario newUser = _repoUsuario.Add(usuario, token);
                     //_repoUsuario.Save();
 
                     

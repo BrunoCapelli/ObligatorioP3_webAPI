@@ -19,9 +19,9 @@ namespace Data_Access.Repositorios
             _restContext = restContext;
         }
 
-        public EcosistemaMarinoEspecie Add(EcosistemaMarinoEspecie entity)
+        public EcosistemaMarinoEspecie Add(EcosistemaMarinoEspecie entity, string token)
         {
-            _restContext.Add(entity).GetAwaiter().GetResult();
+            _restContext.Add(entity,token).GetAwaiter().GetResult();
             return entity;
         }
 

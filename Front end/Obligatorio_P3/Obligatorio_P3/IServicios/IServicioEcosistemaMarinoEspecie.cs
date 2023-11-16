@@ -10,7 +10,7 @@ namespace Servicios.IServicios
 {
     public interface IServicioEcosistemaMarinoEspecie: IServicio<EcosistemaMarinoEspecie>
     {
-        EcosistemaMarinoEspecieDTO Add(int idEcosistema, int idEspecie);
+        EcosistemaMarinoEspecieDTO Add(int idEcosistema, int idEspecie, string token);
 
         bool isApto(int especieId, int ecosistemaId);
     }

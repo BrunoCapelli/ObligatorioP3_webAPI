@@ -17,7 +17,7 @@ namespace Servicios.Servicios
             _repoPais = repoPais;
         }
 
-        public PaisDTO Add(PaisDTO entity) {
+        public PaisDTO Add(PaisDTO entity, string token) {
             throw new NotImplementedException();
         }
 

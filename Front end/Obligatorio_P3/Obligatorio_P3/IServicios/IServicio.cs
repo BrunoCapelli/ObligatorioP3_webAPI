@@ -8,7 +8,7 @@ namespace Servicios.IServicios
 {
     public interface IServicio<T> where T : class
     {
-        T Add(T entity);
+        T Add(T entity, string token);
         void Update(T entity);
         void Remove(int id);
     }

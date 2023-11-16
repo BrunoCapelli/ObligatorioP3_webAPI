@@ -10,6 +10,6 @@ namespace Servicios.IServicios
 {
     public interface IServicioEspecieAmenaza: IServicio<EspecieAmenaza>
     {
-        EspecieAmenazaDTO Add(int AmenazaId, int EspecieId);
+        EspecieAmenazaDTO Add(int AmenazaId, int EspecieId, string token);
     }
 }

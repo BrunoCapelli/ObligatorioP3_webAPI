@@ -25,7 +25,7 @@ namespace Servicios.Servicios
             _repoEstadoConservacion = repoEstadoConservacion;
             _repoPais = repoPais;
         }
-        public EcosistemaMarinoDTO Add(EcosistemaMarinoDTO entity) {
+        public EcosistemaMarinoDTO Add(EcosistemaMarinoDTO entity, string token) {
             
             entity.Validate();
             //EcosistemaMarinoDTO eco = FindByName(entity.Nombre);
@@ -39,7 +39,7 @@ namespace Servicios.Servicios
 
                
 
-                EcosistemaMarino newEco = _repoEcosistemaMarino.Add(ecosistema);
+                EcosistemaMarino newEco = _repoEcosistemaMarino.Add(ecosistema, token);
                
                 //_repoEcosistemaMarino.Save();
                 EcosistemaMarinoDTO newECODto = new EcosistemaMarinoDTO(newEco);

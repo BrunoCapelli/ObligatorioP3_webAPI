@@ -21,7 +21,8 @@ namespace Servicios.Servicios
         {
             DateTime fecha = DateTime.Now;
             Audit audit = new Audit(user,fecha, idEntidadModificada, TipoEntidad);
-            _repoAudit.Add(audit);
+            string token = "";
+            _repoAudit.Add(audit, token);
             //_repoAudit.Save();
         }
 

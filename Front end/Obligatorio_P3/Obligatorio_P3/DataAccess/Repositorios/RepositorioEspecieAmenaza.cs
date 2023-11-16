@@ -19,7 +19,7 @@ namespace Data_Access.Repositorios
             _restContext = restContext;
         }
 
-        public EspecieAmenaza Add(EspecieAmenaza entity) {
+        public EspecieAmenaza Add(EspecieAmenaza entity, string token) {
             throw new NotImplementedException();
         }
 

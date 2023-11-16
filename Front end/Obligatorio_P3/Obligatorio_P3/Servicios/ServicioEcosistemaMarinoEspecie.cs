@@ -34,7 +34,7 @@ namespace Servicios.Servicios
             _repositorioEspecieAmenaza = repositorioEspecieAmenaza;
         }
 
-        public EcosistemaMarinoEspecieDTO Add(int ecosistemaId, int especieId)
+        public EcosistemaMarinoEspecieDTO Add(int ecosistemaId, int especieId, string token)
         {
             
             if(ecosistemaId > 0 && especieId > 0)
@@ -57,9 +57,9 @@ namespace Servicios.Servicios
                 {
                     newEme = new EcosistemaMarinoEspecie(ecosistema, especie);
                     especie.EcosistemasHabitados.Add(ecosistema);
-                    _repositorioEspecie.Update(especie); // Luego de asociado, actualizo el EcosistemaID en la base
+                    //_repositorioEspecie.Update(especie); // Luego de asociado, actualizo el EcosistemaID en la base
 
-                    _repositorioEcosistemaMarinoEspecie.Add(newEme);
+                    _repositorioEcosistemaMarinoEspecie.Add(newEme, token);
                     //_repositorioEcosistemaMarino.Save();
 
 
@@ -78,7 +78,7 @@ namespace Servicios.Servicios
             
         }
 
-        public EcosistemaMarinoEspecie Add(EcosistemaMarinoEspecie entity)
+        public EcosistemaMarinoEspecie Add(EcosistemaMarinoEspecie entity, string token)
         {
             throw new NotImplementedException();
         }

@@ -125,7 +125,7 @@ namespace WebApp.Controllers {
                 ecoDTO.NombreMin = extraerValor("ParametersTopes:NombreMin");
                 ecoDTO.NombreMax = extraerValor("ParametersTopes:NombreMax");
 
-                EcosistemaMarinoDTO nuevoEco = _servicioEcosistemaMarino.Add(ecoDTO);
+                EcosistemaMarinoDTO nuevoEco = _servicioEcosistemaMarino.Add(ecoDTO, HttpContext.Session.GetString("email"));
 
 
                 string ArchivoName = Path.GetFileName(Imagen.FileName);
@@ -228,7 +228,7 @@ namespace WebApp.Controllers {
             {
                 if (EcosistemaId > 0 && AmenazaId > 0 )
                 {
-                    _servicioEcosistemaAmenaza.Add(AmenazaId, EcosistemaId);
+                    _servicioEcosistemaAmenaza.Add(AmenazaId, EcosistemaId, HttpContext.Session.GetString("email"));
                 }
 
                 TempData["msg"] = "La asociacion ha sido realizada";

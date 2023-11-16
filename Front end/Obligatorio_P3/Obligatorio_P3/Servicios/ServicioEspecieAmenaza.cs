@@ -24,12 +24,12 @@ namespace Servicios.Servicios
             _repositorioEspecie = repositorioEspecie;
         }
 
-        public EspecieAmenaza Add(EspecieAmenaza entity)
+        public EspecieAmenaza Add(EspecieAmenaza entity, string token)
         {
             throw new NotImplementedException();
         }
 
-        public EspecieAmenazaDTO Add(int AmenazaId, int EspecieId)
+        public EspecieAmenazaDTO Add(int AmenazaId, int EspecieId, string token)
         {
             if (AmenazaId > 0 && EspecieId > 0)
             {
@@ -46,7 +46,7 @@ namespace Servicios.Servicios
                 }
 
                 EspecieAmenaza especieAmenaza = new EspecieAmenaza(amenaza, especie);
-                _repositorioEspecieAmenaza.Add(especieAmenaza);
+                _repositorioEspecieAmenaza.Add(especieAmenaza, token);
                 //_repositorioEspecieAmenaza.Save();
                 EspecieAmenazaDTO eaDTO = new EspecieAmenazaDTO(especieAmenaza);
                 return eaDTO;

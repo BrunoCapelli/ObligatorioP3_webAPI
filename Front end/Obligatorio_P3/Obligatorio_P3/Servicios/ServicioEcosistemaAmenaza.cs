@@ -25,7 +25,7 @@ namespace Servicios.Servicios
             _repoAmenaza = repositorioAmenaza;
         }
 
-        public void Add(int AmenazaId, int EcosistemaId)
+        public void Add(int AmenazaId, int EcosistemaId, string token)
         {
             if (EcosistemaId > 0 && AmenazaId > 0)
             {
@@ -42,7 +42,7 @@ namespace Servicios.Servicios
                 }
 
                 EcosistemaAmenaza newEme = new EcosistemaAmenaza(ecosistema, amenaza);
-                _repositorioEAmenaza.Add(newEme);
+                _repositorioEAmenaza.Add(newEme,token);
                 //_repositorioEcosistemaMarino.Save();
             }
             else
@@ -52,7 +52,7 @@ namespace Servicios.Servicios
             }
         }
 
-        public EcosistemaAmenaza Add(EcosistemaAmenaza entity)
+        public EcosistemaAmenaza Add(EcosistemaAmenaza entity, string token)
         {
             throw new NotImplementedException();
         }

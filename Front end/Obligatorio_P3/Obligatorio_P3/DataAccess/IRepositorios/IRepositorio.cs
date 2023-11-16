@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Data_Access.IRepositorios
 {
     public interface IRepositorio<T> {
-        T Add(T entity);
+        T Add(T entity, string token);
         void Update(T entity);
         void Remove(T entity);
         IEnumerable<T> GetAll();

@@ -1,4 +1,6 @@
 ﻿using Domain.Exceptions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -95,7 +97,7 @@ namespace Domain.DataAccess
             // Devuelve el objeto deserializado.
         }
 
-        public async Task<T> Add(T entity)
+        public async Task<T> Add(T entity, string token)
         {
             // Método para agregar un nuevo elemento a la API.
 
@@ -104,6 +106,8 @@ namespace Domain.DataAccess
 
             StringContent content = new StringContent(entityJson, System.Text.Encoding.UTF8, "application/json");
             // Crea un contenido de tipo StringContent con el JSON serializado.
+
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
             // Realiza una solicitud POST a la URL de la API con el contenido JSON y espera la respuesta.

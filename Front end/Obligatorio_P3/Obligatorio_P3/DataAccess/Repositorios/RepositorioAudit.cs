@@ -19,7 +19,7 @@ namespace Data_Access.Repositorios
             _restContext = restContext;
         }
 
-        public Audit Add(Audit entity)
+        public Audit Add(Audit entity, string token)
         {
             throw new NotImplementedException();
         }

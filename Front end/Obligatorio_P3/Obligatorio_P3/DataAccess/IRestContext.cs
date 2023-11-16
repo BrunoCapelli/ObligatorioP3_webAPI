@@ -10,7 +10,7 @@ namespace Domain.DataAccess
     {
         Task<IEnumerable<T>> GetAll(String filters);
         Task<T> GetById(int id);
-        Task<T> Add(T entity);
+        Task<T> Add(T entity, string token);
         Task<bool> Update(int id, T entity);
         Task<bool> Remove(T entity);
     }

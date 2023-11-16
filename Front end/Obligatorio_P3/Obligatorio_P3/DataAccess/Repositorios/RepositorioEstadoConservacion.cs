@@ -18,7 +18,7 @@ namespace Data_Access.Repositorios
             _restContext = restContext;
         }
 
-        public EstadoConservacion Add(EstadoConservacion entity) {
+        public EstadoConservacion Add(EstadoConservacion entity, string token) {
             throw new NotImplementedException();
         }
 

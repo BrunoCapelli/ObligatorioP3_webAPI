@@ -16,7 +16,7 @@ namespace Servicios.Servicios
         public ServicioAmenaza(IRepositorioAmenaza repoAmenaza) {
             _repoAmenaza = repoAmenaza;
         }
-        public AmenazaDTO Add(AmenazaDTO entity) {
+        public AmenazaDTO Add(AmenazaDTO entity, string token) {
             throw new NotImplementedException();
         }
 

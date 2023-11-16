@@ -17,7 +17,7 @@ namespace Data_Access.Repositorios
             _restContext = restContext;
         }
 
-        public Pais Add(Pais entity) {
+        public Pais Add(Pais entity, string token) {
             throw new NotImplementedException();
         }
 

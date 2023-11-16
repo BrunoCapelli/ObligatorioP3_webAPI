@@ -43,7 +43,7 @@ namespace WebApp.Controllers
                     string userLoggedToken = _servicioUsuario.Login(usuario);
                     if (userLoggedToken != "")
                     {
-                        HttpContext.Session.SetString("token", userLoggedToken);
+                        HttpContext.Session.SetString("email", userLoggedToken); // email = token
                         return RedirectToAction("Index", "Home");
 
                     }
@@ -104,7 +104,7 @@ namespace WebApp.Controllers
                         UsuarioDTO usuario = new UsuarioDTO { Alias = Alias, Password = Password };
                         try
                         {
-                            usuario = _servicioUsuario.Add(usuario);
+                            usuario = _servicioUsuario.Add(usuario, HttpContext.Session.GetString("email"));
                             ViewBag.Msg = "El usuario se creó correctamente!";
 
                         }

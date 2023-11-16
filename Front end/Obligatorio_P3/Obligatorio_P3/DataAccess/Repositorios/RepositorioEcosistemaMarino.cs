@@ -50,9 +50,10 @@ namespace Data_Access.Repositorios
             return entity;
         }
 
-        public EcosistemaMarino Add(EcosistemaMarino entity)
+        public EcosistemaMarino Add(EcosistemaMarino entity, string token)
         {
-            return _restContext.Add(entity).GetAwaiter().GetResult();
+            
+            return _restContext.Add(entity, token).GetAwaiter().GetResult();
         }
 
         public void Update(EcosistemaMarino entity)

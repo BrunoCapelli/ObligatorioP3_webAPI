@@ -18,7 +18,7 @@ namespace Servicios.Servicios
             _repoEstadoConservacion = repoEstadoConservacion;
         }
 
-        public EstadoConservacionDTO Add(EstadoConservacionDTO entity)
+        public EstadoConservacionDTO Add(EstadoConservacionDTO entity, string token)
         {
             throw new NotImplementedException();
         }

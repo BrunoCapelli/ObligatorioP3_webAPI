@@ -18,7 +18,7 @@ namespace Data_Access.Repositorios
             _restContext = restContext;
         }
 
-        public Amenaza Add(Amenaza entity)
+        public Amenaza Add(Amenaza entity, string token)
         {
             throw new NotImplementedException();
         }

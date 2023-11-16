@@ -119,7 +119,7 @@ namespace WebApp.Controllers
                 newEspecie.DescripcionMax = extraerValor("ParametersTopes:DescripcionMax");
 
                 
-                EspecieDTO especieCreada = _servicioEspecie.Add(newEspecie);
+                EspecieDTO especieCreada = _servicioEspecie.Add(newEspecie, HttpContext.Session.GetString("email"));
 
                 string ArchivoName = Path.GetFileName(Imagen.FileName);
                 //string fileName = Path.GetFileNameWithoutExtension(Imagen.FileName);
@@ -236,7 +236,7 @@ namespace WebApp.Controllers
                 if (EcosistemaId != 0 && EspecieId != 0)
                 {
 
-                    EcosistemaMarinoEspecieDTO emeDTO =  _servicioEcosistemaMarinoEspecie.Add(EcosistemaId, EspecieId);
+                    EcosistemaMarinoEspecieDTO emeDTO =  _servicioEcosistemaMarinoEspecie.Add(EcosistemaId, EspecieId, HttpContext.Session.GetString("email"));
                 }
                 
                 return RedirectToAction("Index");
@@ -380,7 +380,7 @@ namespace WebApp.Controllers
             {
                 if (EspecieId > 0 && AmenazaId > 0)
                 {
-                    _servicioEspecieAmenaza.Add(AmenazaId, EspecieId);
+                    _servicioEspecieAmenaza.Add(AmenazaId, EspecieId, HttpContext.Session.GetString("email"));
                 }
 
                 TempData["msg"] = "La asociacion ha sido realizada";

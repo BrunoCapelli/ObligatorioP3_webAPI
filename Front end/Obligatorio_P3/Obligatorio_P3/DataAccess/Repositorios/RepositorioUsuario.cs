@@ -60,7 +60,7 @@ namespace Data_Access.Repositorios
             throw new NotImplementedException();
         }
 
-        public Usuario Add(Usuario entity)
+        public Usuario Add(Usuario entity, string token)
         {
             throw new NotImplementedException();
         }

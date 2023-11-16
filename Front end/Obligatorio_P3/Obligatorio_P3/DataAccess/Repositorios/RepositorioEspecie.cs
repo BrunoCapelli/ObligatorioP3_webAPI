@@ -46,8 +46,8 @@ namespace Data_Access.Repositorios
             return _restContext.GetAll(filters).GetAwaiter().GetResult();
         }
 
-        public Especie Add(Especie entity) {
-            Especie especie = _restContext.Add(entity).GetAwaiter().GetResult();
+        public Especie Add(Especie entity, string token) {
+            Especie especie = _restContext.Add(entity, token).GetAwaiter().GetResult();
             return especie;
         }
 
