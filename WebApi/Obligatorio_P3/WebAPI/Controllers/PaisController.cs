@@ -1,6 +1,9 @@
 ﻿using Domain.DTO;
+using Domain.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Servicios.IServicios;
+using Servicios.Servicios;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,6 +21,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)] 
         public IActionResult GetAll()
         {
             IEnumerable<PaisDTO> paises = _servicioPais.GetAll();
@@ -34,13 +38,34 @@ namespace WebAPI.Controllers
         }
 
 
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult Get(int id) {
+            try {
+                PaisDTO pais = _servicioPais.GetPais(id);
+                return Ok(pais);
+
+            }
+            catch (Exception ex) {
+                return NotFound(ex.Message);
+            }
+        }
+
 
         [HttpPost]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> LoadPaises()
         {
-            IEnumerable<PaisDTO> paises = await _servicioPais.LoadPaisesAsync();
-
-            return Ok(paises);
+            try {
+                IEnumerable<PaisDTO> paises = await _servicioPais.LoadPaisesAsync();
+                return Ok(paises);
+            }
+            catch (ElementoNoValidoException ex) {
+                return BadRequest(ex.ToString());
+            }
         }
 
 
