@@ -1,5 +1,6 @@
 ﻿using Data_Access.IRepositorios;
 using Domain.DataAccess;
+using Domain.DTO;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,13 +23,14 @@ namespace Data_Access.Repositorios
 
         public EcosistemaMarino GetById(int id)
         {
-            EcosistemaMarino eco = new EcosistemaMarino();
-            string filters = "?" + id;
-            IEnumerable<EcosistemaMarino> entity = _restContext.GetAll(filters).GetAwaiter().GetResult();
-            foreach(var e in entity)
-            {
-                eco = e;
-            }
+            //EcosistemaMarino eco = new EcosistemaMarino();
+            //string filters = "?id=" + id;
+            //IEnumerable<EcosistemaMarino> entity = _restContext.GetAll(filters).GetAwaiter().GetResult();
+            //foreach(var e in entity)
+            //{
+            //    eco = e;
+            //}
+            EcosistemaMarino eco = _restContext.GetById(id).GetAwaiter().GetResult();
             return eco;
         }
 

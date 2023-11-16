@@ -37,7 +37,7 @@ namespace Servicios.Servicios
                 {
                     if(ea.AmenazaId == AmenazaId && ea.EcosistemaMarinoId == EcosistemaId)
                     {
-                        throw new DatabaseException("La asociacion ya existe");
+                        throw new YaExisteElementoException("La asociacion ya existe");
                     }
                 }
 
