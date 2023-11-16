@@ -11,9 +11,9 @@ namespace Domain.Entities
 {
     public class UbiGeografica:IValidable
     {
-        public double Latitud { get; private set; }
-        public double Longitud { get; private set;}
-        public int GradoPeligro { get; private set; }
+        public double Latitud { get;  set; }
+        public double Longitud { get;  set;}
+        public int GradoPeligro { get; set; }
         public UbiGeografica() { }
         public UbiGeografica(double latitud, double longitud, int gradoPeligro) {
             this.GradoPeligro = gradoPeligro;

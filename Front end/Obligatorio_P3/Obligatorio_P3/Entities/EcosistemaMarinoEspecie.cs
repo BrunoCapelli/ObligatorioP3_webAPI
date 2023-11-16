@@ -10,7 +10,7 @@ namespace Domain.Entities
     {
         
         public EcosistemaMarino EcosistemaMarino { get; set; }
-        public int EcosistemaMarinoId;
+        public int EcosistemaMarinoId { get; set; }
 
         public Especie Especie { get; set; }
         public int EspecieId { get; set; }
