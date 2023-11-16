@@ -20,7 +20,7 @@ namespace WebAPI.Controllers {
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        //[ProducesResponseType(StatusCodes.Status409Conflict)]
         public IActionResult Post([FromBody] int amenazaId, int especieId) {
             try {
                 _servicioEspecieAmenaza.Add(amenazaId, especieId);

@@ -39,7 +39,6 @@ namespace WebAPI.Controllers
             return Ok(especies);
         }
 
-        [Authorize]
         [HttpGet("Ecosistema/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -60,7 +59,7 @@ namespace WebAPI.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
+
         public IActionResult Post([FromBody] EspecieDTO especieDTO)  // WIP: tengo que ver que hago con el tema de la imagen al crear un nuevo objeto
         {
             try
@@ -68,10 +67,7 @@ namespace WebAPI.Controllers
                 EspecieDTO eAdd = _servicioEspecie.Add(especieDTO);
                 return Ok(eAdd);
             }
-            catch(ElementoYaExisteException ex)
-            {
-                return StatusCode(StatusCodes.Status409Conflict, ex.Message);
-            }
+           
             catch(ElementoNoValidoException ex)
             {
                 return BadRequest(ex.Message);
@@ -97,7 +93,6 @@ namespace WebAPI.Controllers
         }
 
 
-        [Authorize]
         [HttpGet("nombre/{nombreCientifico}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -114,7 +109,6 @@ namespace WebAPI.Controllers
             }
         }
 
-        [Authorize]
         [HttpGet("Grado/{gradoConservacion}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -131,7 +125,6 @@ namespace WebAPI.Controllers
             }
         }
 
-        [Authorize]
         [HttpGet("Peso/{pesoDesde}/{pesoHasta}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -148,7 +141,6 @@ namespace WebAPI.Controllers
             }
         }
 
-        [Authorize]
         [HttpGet("ecosistema/{ecosistemaID}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

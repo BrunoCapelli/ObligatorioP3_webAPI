@@ -38,8 +38,6 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("Ecosistemas")]
-        [Authorize]
-        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)] 
         public IActionResult GetAll()
         {
@@ -47,7 +45,6 @@ namespace WebAPI.Controllers
             return Ok(especies);
         }
 
-        [Authorize]
         [HttpGet("Ecosistema/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -81,8 +78,12 @@ namespace WebAPI.Controllers
                 return NotFound(exception.Message);
             }
         }
-        
+
+        [Authorize]
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
         public IActionResult Post(string Nombre, int Area, string Latitud, string Longitud, int GradoPeligro, [Required] int Pais, [Required] int EstadoConservacion/*, IFormFile Imagen*/) {
             try
             {
@@ -134,6 +135,7 @@ namespace WebAPI.Controllers
                 
                return Ok(nuevoEco);
             }
+
             catch (ElementoNoValidoException ex)
             {
                 return BadRequest(ex.ToString());

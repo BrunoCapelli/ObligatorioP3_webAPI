@@ -47,7 +47,7 @@ namespace Servicios.Servicios
                 {
                     if (ee.EcosistemaMarinoId == ecosistema.EcosistemaMarinoId && ee.EspecieId == especie.EspecieId)
                     {
-                        throw new DatabaseException("La asociacion ya existe");
+                        throw new ElementoYaExisteException("La asociacion ya existe");
                     }
                 }
 
