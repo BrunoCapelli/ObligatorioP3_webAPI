@@ -18,6 +18,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetAll()
         {
             IEnumerable<EstadoConservacionDTO> estados = _servicioEstadoConservacion.GetAll();
