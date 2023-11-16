@@ -66,6 +66,10 @@ namespace Data_Access.Repositorios
         {
             string filters = "";
             IEnumerable<EcosistemaMarinoEspecie> entity = _restContext.GetAll(filters).GetAwaiter().GetResult();
+            foreach(var e in entity)
+            {
+                e.EcosistemaMarinoId = e.EcosistemaMarino.EcosistemaMarinoId;
+            }
             return entity;
         }
     }

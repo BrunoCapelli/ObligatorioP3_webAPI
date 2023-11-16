@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Data_Access.Repositorios
 {
-    public class RepositorioEspecieAmenaza: IRepositorioEspecieAmenaza
+    public class RepositorioEspecieAmenaza : IRepositorioEspecieAmenaza
     {
 
         private IRestContext<EspecieAmenaza> _restContext;
@@ -19,12 +19,17 @@ namespace Data_Access.Repositorios
             _restContext = restContext;
         }
 
-        public EspecieAmenaza Add(EspecieAmenaza entity, string token) {
-            throw new NotImplementedException();
+        public EspecieAmenaza Add(EspecieAmenaza entity, string token)
+        {
+            _restContext.Add(entity, token);
+            return entity;
         }
 
-        public IEnumerable<EspecieAmenaza> GetAll() {
-            throw new NotImplementedException();
+        public IEnumerable<EspecieAmenaza> GetAll() 
+        {
+            string filters = "";
+            IEnumerable<EspecieAmenaza> eAs =  _restContext.GetAll(filters).GetAwaiter().GetResult(); 
+            return eAs;
         }
 
         public IEnumerable<EspecieAmenaza> GetByEspecieId(int id)

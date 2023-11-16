@@ -71,5 +71,11 @@ namespace Servicios.Servicios
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<EspecieAmenaza> GetAll()
+        {
+            IEnumerable<EspecieAmenaza> especies =  _repositorioEspecieAmenaza.GetAll();
+            return especies;
+        }
     }
 }
