@@ -21,14 +21,22 @@ namespace WebAPI.Controllers {
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         //[ProducesResponseType(StatusCodes.Status409Conflict)]
-        public IActionResult Post([FromBody] int amenazaId, int especieId) {
+        public IActionResult Post(EspecieAmenazaDTO especieAmenaza) {
             try {
-                _servicioEspecieAmenaza.Add(amenazaId, especieId);
+                _servicioEspecieAmenaza.Add(especieAmenaza.AmenazaId, especieAmenaza.EspecieId);
                 return Ok();
             }
             catch (ElementoNoValidoException ex) {
                 return BadRequest(ex.ToString());
             }
+
+        }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            IEnumerable<EspecieAmenazaDTO> ea = _servicioEspecieAmenaza.GetAll();
+            return Ok(ea);
 
         }
     }

@@ -39,7 +39,7 @@ namespace WebAPI.Controllers
             return Ok(especies);
         }
 
-        [HttpGet("Ecosistema/{id}")]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Get(int id)

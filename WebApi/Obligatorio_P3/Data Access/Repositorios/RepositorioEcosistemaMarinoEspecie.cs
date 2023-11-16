@@ -56,6 +56,7 @@ namespace Data_Access.Repositorios
             return Context.Set<EcosistemaMarinoEspecie>()
                 .Include(eme => eme.EcosistemaMarino)
                 .Include(eme => eme.Especie)
+                .Include(em => em.EcosistemaMarino.EstadoConservacion)
                 .ToList();
         }
     }

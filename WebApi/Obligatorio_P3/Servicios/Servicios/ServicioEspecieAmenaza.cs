@@ -71,5 +71,17 @@ namespace Servicios.Servicios
         {
             throw new NotImplementedException();
         }
+        public IEnumerable<EspecieAmenazaDTO> GetAll()
+        {
+            IEnumerable<EspecieAmenaza> especieAmenazas = _repositorioEspecieAmenaza.GetAll();
+            List<EspecieAmenazaDTO> especieAmenazasDTO = new List<EspecieAmenazaDTO>();
+            foreach (EspecieAmenaza ea in especieAmenazas)
+            {
+                EspecieAmenazaDTO eaDTO = new EspecieAmenazaDTO(ea);
+                especieAmenazasDTO.Add(eaDTO);
+            }
+
+            return especieAmenazasDTO;
+        }
     }
 }

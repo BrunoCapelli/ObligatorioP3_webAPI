@@ -29,19 +29,10 @@ namespace WebAPI.Controllers
             return Ok(paises);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetById(int id)
-        {
-            PaisDTO pais = _servicioPais.GetPais(id);
-
-            return Ok(pais);
-        }
-
-
-        [HttpGet("{id}")]
+       [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult Get(int id) {
+        public IActionResult GetById(int id) {
             try {
                 PaisDTO pais = _servicioPais.GetPais(id);
                 return Ok(pais);
