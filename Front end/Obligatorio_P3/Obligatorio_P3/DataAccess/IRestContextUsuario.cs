@@ -6,11 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Servicios.IServicios
+namespace Domain.DataAccess
 {
-    public interface IServicioUsuario: IServicio<UsuarioDTO>
+    public interface IRestContextUsuario<T>
     {
-        string Login(UsuarioDTO user);
-        UsuarioDTO FindUser(UsuarioDTO user);
+        Task<Usuario> Login(string alias, string password);
     }
 }

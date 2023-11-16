@@ -25,7 +25,7 @@ namespace Servicios.Servicios
         public UsuarioDTO Add(UsuarioDTO userDTO)
         {
             userDTO.Validate();
-            UsuarioDTO foundUserDTO = FindAlias(userDTO);
+            UsuarioDTO foundUserDTO = FindUser(userDTO);
 
             if (foundUserDTO == null) // En este punto el Alias chequea que el Alias sea nulo, es decir, que no existe.
             {
@@ -52,27 +52,22 @@ namespace Servicios.Servicios
             return userDTO;
         }
 
-        public UsuarioDTO FindAlias(UsuarioDTO user)
+        public string Login(UsuarioDTO user)
         {
 
             Usuario aUser = new Usuario(user);
-            UsuarioDTO foundUser = new UsuarioDTO();
+            string token = string.Empty;
             if(aUser != null)
             {
-                aUser = _repoUsuario.GetUsuarioByAlias(aUser.Alias);
-
-                if(aUser != null)
-                {
-                    foundUser = new UsuarioDTO(aUser);
-                }
-                else
-                {
-                    foundUser = null;
-                }
+                Usuario User = _repoUsuario.GetUsuario(aUser.Alias, aUser.Password);
+                token = User.AccessToken;
             }
+                      
 
-            return foundUser;
+            return token;
         }
+
+        
 
         public UsuarioDTO FindUser(UsuarioDTO user)
         {

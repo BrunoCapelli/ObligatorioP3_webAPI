@@ -3,6 +3,7 @@ using Domain.Exceptions;
 using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ namespace Domain.Entities
         public string Alias { get; set; }
         public string Password { get; set; }
         public DateTime FechaAlta { get; set; }
+        [NotMapped]
+        public string AccessToken { get; set; }
         public Usuario() { }
         public Usuario(UsuarioDTO user)
         {

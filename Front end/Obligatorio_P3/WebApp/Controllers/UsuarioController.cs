@@ -40,10 +40,10 @@ namespace WebApp.Controllers
 
                 try
                 {
-                    UsuarioDTO userLogged = _servicioUsuario.FindUser(usuario);
-                    if (userLogged != null)
+                    string userLoggedToken = _servicioUsuario.Login(usuario);
+                    if (userLoggedToken != "")
                     {
-                        HttpContext.Session.SetString("email", userLogged.Alias);
+                        HttpContext.Session.SetString("token", userLoggedToken);
                         return RedirectToAction("Index", "Home");
 
                     }
