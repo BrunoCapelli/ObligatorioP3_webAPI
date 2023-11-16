@@ -9,11 +9,9 @@ namespace WebApp.Controllers
     public class UsuarioController : Controller
     {
         protected IServicioUsuario _servicioUsuario;
-        protected IServicioAudit _servicioAudit;
-        public UsuarioController(IServicioUsuario servicioUsuario, IServicioAudit servicioAudit)
+        public UsuarioController(IServicioUsuario servicioUsuario)
         {
             _servicioUsuario = servicioUsuario;
-            _servicioAudit = servicioAudit;
         }
        
         public ActionResult Index()
@@ -107,7 +105,6 @@ namespace WebApp.Controllers
                         try
                         {
                             usuario = _servicioUsuario.Add(usuario);
-                            _servicioAudit.Log(HttpContext.Session.GetString("email") ?? "NULL", usuario.UsuarioDTOId, "Usuario (Add)");
                             ViewBag.Msg = "El usuario se creó correctamente!";
 
                         }

@@ -45,7 +45,7 @@ namespace Data_Access.Repositorios
         }
 
         public IEnumerable<EcosistemaMarino > GetAllEcosistemas() {
-            string filters = "?" ;
+            string filters = "/Ecosistemas" ;
             IEnumerable<EcosistemaMarino> entity = _restContext.GetAll(filters).GetAwaiter().GetResult();
             return entity;
         }

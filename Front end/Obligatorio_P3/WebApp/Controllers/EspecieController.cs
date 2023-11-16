@@ -16,7 +16,6 @@ namespace WebApp.Controllers
         protected IServicioEspecieAmenaza _servicioEspecieAmenaza;
         protected IServicioEstadoConservacion _servicioEstadoConservacion;
         protected IServicioEcosistemaMarino _servicioEcosistemaMarino;
-        protected IServicioAudit _servicioAudit;
         protected IConfiguration _configuration;
 
         protected IServicioEcosistemaMarinoEspecie _servicioEcosistemaMarinoEspecie;
@@ -28,14 +27,12 @@ namespace WebApp.Controllers
             IServicioEcosistemaMarino servicioEcosistemaMarino,
             IServicioEspecieAmenaza servicioEspecieAmenaza,
             IServicioAmenaza servicioAmenaza,
-            IServicioAudit servicioAudit,
             IWebHostEnvironment webHostEnvironment, 
             IConfiguration configuration,
             IServicioEcosistemaMarinoEspecie servicioEcosistemaMarinoEspecie) 
         {
             _servicioEspecie = servicioEspecie;
             _servicioAmenaza = servicioAmenaza;
-            _servicioAudit = servicioAudit;
             _servicioEstadoConservacion = estadoConservacion;
             _servicioEspecieAmenaza = servicioEspecieAmenaza;
             _servicioEcosistemaMarino = servicioEcosistemaMarino;
@@ -69,7 +66,6 @@ namespace WebApp.Controllers
                         e.ImagenURL = ObtenerNombreImagen(e.EspecieId);
                     }
 
-                    _servicioAudit.Log(HttpContext.Session.GetString("email") ?? "NULL", id, "Especie (Delete)");
                     ViewBag.Msg = "La especie ha sido eliminada con exito";
                     BorrarImagen(id);
                 }
@@ -145,7 +141,6 @@ namespace WebApp.Controllers
                     {
                         Imagen.CopyTo(stream);
                     }
-                    _servicioAudit.Log(HttpContext.Session.GetString("email") ?? "NULL", especieCreada.EspecieId, "Especie (Add)");
                     ViewBag.Msg = "Especie creada!";
                 }
                 else
@@ -242,7 +237,6 @@ namespace WebApp.Controllers
                 {
 
                     EcosistemaMarinoEspecieDTO emeDTO =  _servicioEcosistemaMarinoEspecie.Add(EcosistemaId, EspecieId);
-                    _servicioAudit.Log(HttpContext.Session.GetString("email") ?? "NULL", emeDTO.EcosistemaMarinoId, "Especie (Asig. Eco)");
                 }
                 
                 return RedirectToAction("Index");
@@ -387,7 +381,6 @@ namespace WebApp.Controllers
                 if (EspecieId > 0 && AmenazaId > 0)
                 {
                     _servicioEspecieAmenaza.Add(AmenazaId, EspecieId);
-                    _servicioAudit.Log(HttpContext.Session.GetString("email") ?? "NULL", EspecieId, "Especie (Asig. Ame)");
                 }
 
                 TempData["msg"] = "La asociacion ha sido realizada";
