@@ -77,7 +77,9 @@ namespace WebApp.Controllers
                 }
 
 
-                    ViewBag.Ecosistemas = _servicioEcosistemaMarino.GetAll();
+                ViewBag.Ecosistemas = _servicioEcosistemaMarino.GetAll();
+                IEnumerable<EstadoConservacionDTO> estados = _servicioEstadoConservacion.GetAll();
+                ViewBag.estados = estados;
                 return View("Index");
             }else {
                 TempData["msg"] = "Debe iniciar sesion para realizar esa accion";

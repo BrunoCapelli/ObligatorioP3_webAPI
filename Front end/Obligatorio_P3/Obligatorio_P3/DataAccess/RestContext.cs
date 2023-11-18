@@ -186,10 +186,7 @@ namespace Domain.DataAccess
             // Devuelve true si la solicitud fue exitosa (código de estado HTTP 2xx) y false en caso contrario.
         }
 
-        public Task<bool> Remove(T entity)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 
 }

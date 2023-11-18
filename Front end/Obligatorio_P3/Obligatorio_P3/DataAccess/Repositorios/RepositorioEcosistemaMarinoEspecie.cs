@@ -54,7 +54,7 @@ namespace Data_Access.Repositorios
 
         public void Remove(EcosistemaMarinoEspecie entity)
         {
-            _restContext.Remove(entity).GetAwaiter().GetResult();
+            //_restContext.Remove(entity).GetAwaiter().GetResult();
         }
 
         public void Update(EcosistemaMarinoEspecie entity)

@@ -65,7 +65,7 @@ namespace Data_Access.Repositorios
 
         public void Remove(EcosistemaMarino entity)
         {
-            _restContext.Remove(entity).GetAwaiter().GetResult();
+            _restContext.Remove(entity.EcosistemaMarinoId).GetAwaiter().GetResult();
         }
 
         public IEnumerable<EcosistemaMarino> GetAll()

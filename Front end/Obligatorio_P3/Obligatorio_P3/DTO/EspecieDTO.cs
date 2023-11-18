@@ -16,15 +16,15 @@ namespace Domain.DTO {
         public string Descripcion { get; set; }
         public double PesoMin { get; set; }
         public double PesoMax { get; set; }
-        public IFormFile Imagen { get; set; }
-        public string ImagenURL { get; set; }
+        public IFormFile? Imagen { get; set; }
+        public string? ImagenURL { get; set; }
         public int NombreMin { get; set; }
         public int NombreMax { get; set; }
         public int DescripcionMin { get; set; }
         public int DescripcionMax { get; set; }
-        public List<AmenazaDTO> Amenazas { get; set; }
+        public List<AmenazaDTO>? Amenazas { get; set; }
         public EstadoConservacionDTO EstadoConservacion { get; set; }
-        public List<EcosistemaMarinoDTO> EcosistemasHabitados { get; set; }
+        public List<EcosistemaMarinoDTO>? EcosistemasHabitados { get; set; }
         public EspecieDTO() { }
         public EspecieDTO(Especie especie) {
 
@@ -62,22 +62,18 @@ namespace Domain.DTO {
                 throw new StringException("El nombre vulgar no puede ser vacio");
             }
 
-            if (NombreCientifico.Length < NombreMin || NombreCientifico.Length > NombreMax)
-            {
-                throw new NombreLargoException("El nombre cientifico debe contener entre 50 y 500 caracteres");
+            if (NombreCientifico.Length < NombreMin || NombreCientifico.Length > NombreMax) {
+                throw new NombreLargoException("El nombre cientifico debe contener entre " + NombreMin + " y " + NombreMax + " caracteres");
             }
-            if (NombreCientifico.Length < NombreMin || NombreCientifico.Length > NombreMax)
-            {
-                throw new NombreLargoException("El nombre vulgar debe contener entre 50 y 500 caracteres");
+            if (NombreCientifico.Length < NombreMin || NombreCientifico.Length > NombreMax) {
+                throw new NombreLargoException("El nombre vulgar debe contener entre " + NombreMin + " y " + NombreMax + " caracteres");
             }
 
-            if (Descripcion == "")
-            {
+            if (Descripcion == "") {
                 throw new StringException("La descripcion no puede ser vacio");
             }
-            if (Descripcion.Length < DescripcionMin || Descripcion.Length > DescripcionMax)
-            {
-                throw new NombreLargoException("La descripcion debe contener entre 50 y 500 caracteres");
+            if (Descripcion.Length < DescripcionMin || Descripcion.Length > DescripcionMax) {
+                throw new NombreLargoException("La descripcion debe contener entre " + DescripcionMin + " y " + DescripcionMax + " caracteres");
             }
 
             if (PesoMin <= 0)
