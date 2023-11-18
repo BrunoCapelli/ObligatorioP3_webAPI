@@ -19,12 +19,12 @@ namespace Domain.DTO {
         public List<AmenazaDTO> Amenazas = new List<AmenazaDTO>();
         public EstadoConservacionDTO EstadoConservacion { get; set; }
         public int PaisId { get; set; }
-        public string PaisNombre { get; set; }
-        public string ImagenURL { get; set; }
+        public string? PaisNombre { get; set; }
+        public string? ImagenURL { get; set; }
         public int NombreMin { get; set; }
         public int NombreMax { get; set; }
 
-        public IFormFile Imagen { get; set; }
+        public IFormFile? Imagen { get; set; }
 
 
         public EcosistemaMarinoDTO() { }

@@ -84,18 +84,20 @@ namespace WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
-        public IActionResult Post(string Nombre, int Area, string Latitud, string Longitud, int GradoPeligro, [Required] int Pais, [Required] int EstadoConservacion/*, IFormFile Imagen*/) {
+        //public IActionResult Post(string Nombre, int Area, string Latitud, string Longitud, int GradoPeligro, [Required] int Pais, [Required] int EstadoConservacion/*, IFormFile Imagen*/) 
+        public IActionResult Post(EcosistemaMarinoDTO eco) 
+        {
             try
             {
-                UbiGeografica ubi = new UbiGeografica();
+                //UbiGeografica ubi = new UbiGeografica();
 
                 Regex regex = new Regex(@"^[0-9,-]+$");
-                if (regex.IsMatch(Latitud) && regex.IsMatch(Longitud))
+                if (regex.IsMatch(eco.UbicacionGeografica.Latitud.ToString()) && regex.IsMatch(eco.UbicacionGeografica.Longitud.ToString()))
                 {
-                    Double.TryParse(Latitud, out double latitudParsed);
-                    Double.TryParse(Longitud, out double longitudParsed);
+                    Double.TryParse(eco.UbicacionGeografica.Latitud.ToString(), out double latitudParsed);
+                    Double.TryParse(eco.UbicacionGeografica.Longitud.ToString(), out double longitudParsed);
 
-                    ubi = new UbiGeografica(latitudParsed, longitudParsed, GradoPeligro);
+                    UbiGeografica ubi = new UbiGeografica(latitudParsed, longitudParsed, eco.UbicacionGeografica.GradoPeligro);
                     ubi.Validate();
                 }
                 else
@@ -105,10 +107,10 @@ namespace WebAPI.Controllers
 
 
 
-                EstadoConservacionDTO EstadoC = _servicioEstadoConservacion.GetEstado(EstadoConservacion);
+                EstadoConservacionDTO EstadoC = _servicioEstadoConservacion.GetEstado(eco.EstadoConservacion.EstadoConservacionId);
 
 
-                EcosistemaMarinoDTO ecoDTO = new EcosistemaMarinoDTO(Nombre, ubi, Area, EstadoC, Pais);
+                EcosistemaMarinoDTO ecoDTO = eco;
                 ecoDTO.NombreMin = extraerValor("ParametersTopes:NombreMin");
                 ecoDTO.NombreMax = extraerValor("ParametersTopes:NombreMax");
 

@@ -25,16 +25,15 @@ namespace WebAPI.Controllers
             _configuration = configuration;
         }
 
-        //Restringirlo al Admin
         [HttpPost("Register")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public IActionResult Register([Required] string Alias, [Required] string Password, [Required] string PassConfirm) {
+        public IActionResult Register(UsuarioDTO user) {
             try {
-                if (!String.IsNullOrEmpty(Alias) && !String.IsNullOrEmpty(Password) && !String.IsNullOrEmpty(PassConfirm)) {
-                    if (Password.ToLower() == PassConfirm.ToLower()) {
-                        UsuarioDTO usuario = new UsuarioDTO { Alias = Alias, Password = Password };
+                if (!String.IsNullOrEmpty(user.Alias) && !String.IsNullOrEmpty(user.Password) && !String.IsNullOrEmpty(user.Password)) {
+                    if (user.Password.ToLower() == user.Password.ToLower()) {
+                        UsuarioDTO usuario = new UsuarioDTO { Alias = user.Alias, Password = user.Password };
                         try {
                             usuario = _servicioUsuario.Add(usuario);
                             //_servicioAudit.Log(HttpContext.Session.GetString("email") ?? "NULL", usuario.UsuarioDTOId, "Usuario (Add)");
@@ -135,6 +134,24 @@ namespace WebAPI.Controllers
             return  tokenString;
         }
 
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public IActionResult Alias(string Alias)
+        {
+            UsuarioDTO usuario = new UsuarioDTO() { Alias = Alias };
+            UsuarioDTO user = _servicioUsuario.FindAlias(usuario);
+            if(user == null)
+            {
+                return NoContent();
+            }
+            else
+            {
+                user.Password = "";
+                return Ok(user);
+            }
+
+        }
 
     }
 }
