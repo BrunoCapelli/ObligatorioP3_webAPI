@@ -29,7 +29,7 @@ namespace Data_Access.Repositorios
             throw new NotImplementedException();
         }
 
-        public void Remove(Audit entity)
+        public void Remove(Audit entity, string token)
         {
             throw new NotImplementedException();
         }

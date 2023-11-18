@@ -22,7 +22,10 @@ namespace Data_Access.Repositorios
         }
 
         public IEnumerable<Pais> GetAll() {
-            throw new NotImplementedException();
+            string filters = "";
+            IEnumerable<Pais> paises = _restContext.GetAll(filters).GetAwaiter().GetResult();
+            return paises;
+
         }
 
         public Pais GetPais(int id) {
@@ -33,7 +36,7 @@ namespace Data_Access.Repositorios
 
         }
 
-        public void Remove(Pais entity) {
+        public void Remove(Pais entity, string token) {
             throw new NotImplementedException();
         }
 

@@ -91,7 +91,7 @@ namespace Servicios.Servicios
             return eDTO;
         }
 
-        public void Remove(int id) {
+        public void Remove(int id, string token) {
             EcosistemaMarino eco = _repoEcosistemaMarino.GetById(id);
             IEnumerable<EcosistemaMarinoEspecie> EmEs = _repoEcosistemaMarinoEspecie.GetAll();
             int contador = 0;
@@ -102,7 +102,7 @@ namespace Servicios.Servicios
 
             if(contador == 0)
             {
-                _repoEcosistemaMarino.Remove(eco);
+                _repoEcosistemaMarino.Remove(eco, token);
                 //_repoEcosistemaMarino.Save();
 
             }

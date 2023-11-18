@@ -36,7 +36,7 @@ namespace Data_Access.Repositorios
             return amenaza;
         }
 
-        public void Remove(Amenaza entity)
+        public void Remove(Amenaza entity, string token)
         {
             throw new NotImplementedException();
         }

@@ -21,7 +21,7 @@ namespace Servicios.Servicios
             throw new NotImplementedException();
         }
 
-        public void Remove(int id) {
+        public void Remove(int id, string token) {
             throw new NotImplementedException();
         }
 

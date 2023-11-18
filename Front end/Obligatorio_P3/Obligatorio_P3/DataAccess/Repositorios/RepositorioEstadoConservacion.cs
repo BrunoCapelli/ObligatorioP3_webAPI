@@ -35,7 +35,7 @@ namespace Data_Access.Repositorios
             return Estado;
         }
 
-        public void Remove(EstadoConservacion entity) {
+        public void Remove(EstadoConservacion entity, string token) {
             throw new NotImplementedException();
         }
 

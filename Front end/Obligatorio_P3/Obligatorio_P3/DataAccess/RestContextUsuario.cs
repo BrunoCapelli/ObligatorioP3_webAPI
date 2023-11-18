@@ -50,5 +50,43 @@ namespace Domain.DataAccess
             var createdEntity = JsonSerializer.Deserialize<Usuario>(responseBody, options);
             return createdEntity;
         }
+
+        public async Task<T> Add(T entity, string token)
+        {
+            string url = "/Register";
+            string entityJson = JsonSerializer.Serialize(entity);
+            StringContent content = new StringContent(entityJson, System.Text.Encoding.UTF8, "application/json");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpResponseMessage response = await httpClient.PostAsync(apiUrl+url, content);
+            string errorMessage = await response.Content.ReadAsStringAsync();
+            HttpErrorHandler.throwExceptionFromHttpStatusCodeAsync(response, errorMessage);
+            string responseBody = await response.Content.ReadAsStringAsync();
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                WriteIndented = true
+            };
+            var createdEntity = JsonSerializer.Deserialize<T>(responseBody, options);
+            return createdEntity;
+        }
+        public async Task<IEnumerable<T>> GetAll(string filters)
+        {
+            HttpResponseMessage response = await httpClient.GetAsync(apiUrl + filters);
+            string errorMessage = await response.Content.ReadAsStringAsync();
+            HttpErrorHandler.throwExceptionFromHttpStatusCodeAsync(response, errorMessage);
+            string responseBody = await response.Content.ReadAsStringAsync();
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                WriteIndented = true
+            };
+            var entities = new List<T>();
+            if(responseBody != "")
+            {
+                entities = JsonSerializer.Deserialize<List<T>>(responseBody, options);
+            }
+            
+            return entities;
+        }
     }
 }

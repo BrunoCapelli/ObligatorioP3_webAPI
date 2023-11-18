@@ -54,7 +54,7 @@ namespace WebApp.Controllers {
         public IActionResult Delete(int id) {
             if (HttpContext.Session.Get("email") != null) {
                 try {
-                    _servicioEcosistemaMarino.Remove(id);
+                    _servicioEcosistemaMarino.Remove(id, HttpContext.Session.GetString("email"));
                     IEnumerable<EcosistemaMarinoDTO> ecos = _servicioEcosistemaMarino.GetAll();
                     foreach (EcosistemaMarinoDTO e in ecos) {
                         e.ImagenURL = ObtenerNombreImagen(e.EcosistemaMarinoId);

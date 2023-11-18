@@ -48,7 +48,7 @@ namespace Servicios.Servicios
             return estadoResultado;
         }
 
-        public void Remove(int id) {
+        public void Remove(int id, string token) {
             throw new NotImplementedException();
         }
     }

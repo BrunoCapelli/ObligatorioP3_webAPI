@@ -36,7 +36,7 @@ namespace Data_Access.Repositorios
             return entity;
         }
 
-        public void Remove(EcosistemaAmenaza entity)
+        public void Remove(EcosistemaAmenaza entity, string token)
         {
             throw new NotImplementedException();
         }

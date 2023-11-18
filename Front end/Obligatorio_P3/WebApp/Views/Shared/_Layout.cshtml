@@ -43,9 +43,8 @@
                                 </div>
                             </div>
                         </li>
-
                         @if (Context.Session.GetString("email") != null) {
-                            @if (Context.Session.GetString("email") == "admin1") {
+                            @if (Context.Session.GetString("email").ToString().Substring(0, 25) == "eyJhbGciOiJIUzI1NiIsInR5c") {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-controller="Usuario" asp-action="Register">Agregar usuario</a>
                                 </li>

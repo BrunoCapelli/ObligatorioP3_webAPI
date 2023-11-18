@@ -29,7 +29,7 @@ namespace Servicios.Servicios
             _repo.Update(entity);
         }
 
-        public void Remove(int id)
+        public void Remove(int id, string token)
         {
             //_repo.Remove(entity);
         }

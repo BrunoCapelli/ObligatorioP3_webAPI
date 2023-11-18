@@ -55,8 +55,8 @@ namespace Data_Access.Repositorios
             throw new NotImplementedException();
         }
 
-        public void Remove(Especie entity) {
-            _restContext.Remove(entity.EspecieId).GetAwaiter().GetResult();
+        public void Remove(Especie entity, string token) {
+            _restContext.Remove(entity.EspecieId, token).GetAwaiter().GetResult();
         }
 
         public IEnumerable<Especie> GetAll() {

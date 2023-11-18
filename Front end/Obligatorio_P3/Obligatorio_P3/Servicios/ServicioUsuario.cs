@@ -27,12 +27,12 @@ namespace Servicios.Servicios
             userDTO.Validate();
             UsuarioDTO foundUserDTO = FindUser(userDTO);
 
-            if (foundUserDTO == null) // En este punto el Alias chequea que el Alias sea nulo, es decir, que no existe.
+            if (foundUserDTO.Alias == null) // En este punto el Alias chequea que el Alias sea nulo, es decir, que no existe.
             {
                 Usuario usuario = new Usuario(userDTO);
                 if(usuario != null) //programacion defensiva
                 {
-                    usuario.Password = HashPassword(usuario.Password); // Guardo la contraseña hasheada. Si quiero ver si es correcta, hasheo la que entra y la comparo con la guardada en la base
+                    //usuario.Password = HashPassword(usuario.Password); // Guardo la contraseña hasheada. Si quiero ver si es correcta, hasheo la que entra y la comparo con la guardada en la base
                     DateTime fecha = DateTime.Now;
                     usuario.FechaAlta = fecha;
                     Usuario newUser = _repoUsuario.Add(usuario, token);
@@ -79,14 +79,14 @@ namespace Servicios.Servicios
                 try
                 {
                     aUser = _repoUsuario.GetUsuarioByAlias(aUser.Alias);
-                    if (aUser != null && HashPassword(user.Password) == aUser.Password )
+                    if (aUser != null /*&& HashPassword(user.Password) == aUser.Password*/ )
                     {
                         foundUser = new UsuarioDTO(aUser);
                     }
-                    else
-                    {
-                        throw new Exception("No se encontro el usuario");
-                    }
+                    //else
+                    //{
+                    //    throw new Exception("No se encontro el usuario");
+                    //}
 
                 }catch(Exception ex)
                 {
@@ -101,7 +101,7 @@ namespace Servicios.Servicios
 
 
 
-        public void Remove(int id)
+        public void Remove(int id, string token)
         {
             Usuario auxUser = _repoUsuario.GetUsuarioById(id);
             //Usuario auxUser = new Usuario(user);
@@ -109,7 +109,7 @@ namespace Servicios.Servicios
             // Audit Remove
             // _servicioAudit.Log(auxUser.Alias, auxUser.UsuarioId, "Usuario (Remove)");
 
-            _repoUsuario.Remove(auxUser);
+            _repoUsuario.Remove(auxUser, token);
         }
 
         public void Update(UsuarioDTO user)

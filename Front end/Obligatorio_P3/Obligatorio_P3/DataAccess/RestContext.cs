@@ -169,8 +169,9 @@ namespace Domain.DataAccess
             // Devuelve el objeto actualizado y deserializado.
         }
 
-        public async Task<bool> Remove(int id)
+        public async Task<bool> Remove(int id, string token)
         {
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             // Método para eliminar un elemento de la API por su ID.
 
             HttpResponseMessage response = await httpClient.DeleteAsync($"{apiUrl}/{id}");

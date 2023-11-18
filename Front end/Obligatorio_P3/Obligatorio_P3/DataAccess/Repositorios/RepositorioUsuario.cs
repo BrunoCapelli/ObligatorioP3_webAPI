@@ -49,20 +49,21 @@ namespace Data_Access.Repositorios
 
         public Usuario GetUsuarioByAlias(string userAlias)
         {
-            // string filters = "?Alias=" + userAlias;
-            //// IEnumerable<Usuario> entity = _restContext.GetAll(filters).GetAwaiter().GetResult();
-            // Usuario user = null;
-            // foreach (Usuario usuario in entity)
-            // {
-            //     user = usuario;
-            // }
-            // return user;
-            throw new NotImplementedException();
+            string filters = "?Alias=" + userAlias;
+            IEnumerable<Usuario> entity = _restContext.GetAll(filters).GetAwaiter().GetResult();
+            Usuario user = null;
+            foreach (Usuario usuario in entity)
+            {
+                user = usuario;
+            }
+            return user;
+
         }
 
         public Usuario Add(Usuario entity, string token)
         {
-            throw new NotImplementedException();
+            Usuario user = _restContext.Add(entity, token).GetAwaiter().GetResult();
+            return user;
         }
 
         public void Update(Usuario entity)
@@ -70,7 +71,7 @@ namespace Data_Access.Repositorios
             throw new NotImplementedException();
         }
 
-        public void Remove(Usuario entity)
+        public void Remove(Usuario entity, string token)
         {
             throw new NotImplementedException();
         }

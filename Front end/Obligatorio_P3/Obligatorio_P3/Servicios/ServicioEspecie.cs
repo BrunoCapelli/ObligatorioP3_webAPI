@@ -181,7 +181,7 @@ namespace Servicios.Servicios
             return EcosistemasFiltrados;
         }
 
-        public void Remove(int id) 
+        public void Remove(int id, string token) 
         {
 
             Especie esp = _repoEspecie.GetById(id);
@@ -191,11 +191,11 @@ namespace Servicios.Servicios
             {
                 if(emEspecie.EspecieId == id)
                 {
-                    _repoEcosistemaMarinoEspecie.Remove(emEspecie);
+                    _repoEcosistemaMarinoEspecie.Remove(emEspecie, token);
                 }
             }
 
-            _repoEspecie.Remove(esp);
+            _repoEspecie.Remove(esp, token);
             //_repoEspecie.Save();
   
         }

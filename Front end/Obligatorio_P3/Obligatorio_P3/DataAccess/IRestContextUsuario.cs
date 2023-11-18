@@ -11,5 +11,7 @@ namespace Domain.DataAccess
     public interface IRestContextUsuario<T>
     {
         Task<Usuario> Login(string alias, string password);
+        Task<T> Add(T entity, string token);
+        Task<IEnumerable<T>> GetAll(string filters);
     }
 }

@@ -59,7 +59,7 @@ namespace WebApp.Controllers
             if (HttpContext.Session.Get("email") != null) {
                 try {
 
-                    _servicioEspecie.Remove(id);
+                    _servicioEspecie.Remove(id, HttpContext.Session.GetString("email"));
                     IEnumerable<EspecieDTO> especies = _servicioEspecie.GetAll();
                     ViewBag.Especies = especies;
                     foreach (EspecieDTO e in especies) {

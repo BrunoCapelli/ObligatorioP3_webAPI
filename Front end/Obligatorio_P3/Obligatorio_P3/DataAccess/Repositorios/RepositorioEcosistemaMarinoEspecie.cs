@@ -52,7 +52,7 @@ namespace Data_Access.Repositorios
             return esp;
         }
 
-        public void Remove(EcosistemaMarinoEspecie entity)
+        public void Remove(EcosistemaMarinoEspecie entity, string token)
         {
             //_restContext.Remove(entity).GetAwaiter().GetResult();
         }

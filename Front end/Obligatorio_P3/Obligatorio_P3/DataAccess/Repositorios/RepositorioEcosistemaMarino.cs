@@ -63,9 +63,9 @@ namespace Data_Access.Repositorios
             throw new NotImplementedException();
         }
 
-        public void Remove(EcosistemaMarino entity)
+        public void Remove(EcosistemaMarino entity, string token)
         {
-            _restContext.Remove(entity.EcosistemaMarinoId).GetAwaiter().GetResult();
+            _restContext.Remove(entity.EcosistemaMarinoId, token).GetAwaiter().GetResult();
         }
 
         public IEnumerable<EcosistemaMarino> GetAll()
