@@ -16,15 +16,15 @@ namespace Domain.DTO {
         public string Descripcion { get; set; }
         public double PesoMin { get; set; }
         public double PesoMax { get; set; }
-        public IFormFile Imagen { get; set; }
-        public string ImagenURL { get; set; }
+        public IFormFile? Imagen { get; set; }
+        public string? ImagenURL { get; set; }
         public int NombreMin { get; set; }
         public int NombreMax { get; set; }
         public int DescripcionMin { get; set; }
         public int DescripcionMax { get; set; }
-        public List<AmenazaDTO> Amenazas { get; set; }
+        public List<AmenazaDTO>? Amenazas { get; set; }
         public EstadoConservacionDTO EstadoConservacion { get; set; }
-        public List<EcosistemaMarinoDTO> EcosistemasHabitados { get; set; }
+        public List<EcosistemaMarinoDTO>? EcosistemasHabitados { get; set; }
         public EspecieDTO() { }
         public EspecieDTO(Especie especie) {
 
@@ -64,11 +64,11 @@ namespace Domain.DTO {
 
             if (NombreCientifico.Length < NombreMin || NombreCientifico.Length > NombreMax)
             {
-                throw new NombreLargoException("El nombre cientifico debe contener entre 50 y 500 caracteres");
+                throw new NombreLargoException("El nombre cientifico debe contener entre 2 y 50 caracteres");
             }
             if (NombreCientifico.Length < NombreMin || NombreCientifico.Length > NombreMax)
             {
-                throw new NombreLargoException("El nombre vulgar debe contener entre 50 y 500 caracteres");
+                throw new NombreLargoException("El nombre vulgar debe contener entre 2 y 50 caracteres");
             }
 
             if (Descripcion == "")

@@ -3,6 +3,7 @@ using Domain.DTO;
 using Domain.Entities;
 using Domain.Exceptions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Servicios.IServicios;
 using System;
 using System.Collections.Generic;
@@ -18,15 +19,19 @@ namespace Servicios.Servicios
         private IRepositorioEcosistemaMarinoEspecie _repoEcosistemaMarinoEspecie;
         private IRepositorioEstadoConservacion _repoEstadoConservacion;
         private IRepositorioPais _repoPais;
+        private IConfiguration _configuration;
 
-        public ServicioEcosistemaMarino(IRepositorioEcosistemaMarino repoEcosistemaMarino, IRepositorioEstadoConservacion repoEstadoConservacion,IRepositorioPais repoPais, IRepositorioEcosistemaMarinoEspecie repoEcosistemaMarinoEspecie) {
+        public ServicioEcosistemaMarino(IRepositorioEcosistemaMarino repoEcosistemaMarino, IRepositorioEstadoConservacion repoEstadoConservacion,IRepositorioPais repoPais, IRepositorioEcosistemaMarinoEspecie repoEcosistemaMarinoEspecie, IConfiguration configuration) {
             _repoEcosistemaMarino = repoEcosistemaMarino;
             _repoEcosistemaMarinoEspecie = repoEcosistemaMarinoEspecie;
             _repoEstadoConservacion = repoEstadoConservacion;
             _repoPais = repoPais;
+            _configuration = configuration;
         }
         public EcosistemaMarinoDTO Add(EcosistemaMarinoDTO entity) {
-            
+
+            entity.NombreMin = extraerValor("ParametersTopes:NombreMin");
+            entity.NombreMax = extraerValor("ParametersTopes:NombreMax");
             entity.Validate();
             //EcosistemaMarinoDTO eco = FindByName(entity.Nombre);
             
@@ -111,6 +116,12 @@ namespace Servicios.Servicios
                 throw new DatabaseException("No se puede eliminar un ecosistema que tenga una especie asociada");
             }
 
+        }
+        private int extraerValor(string clave) {
+            int valor = 0;
+            string strValor = _configuration[clave];
+            Int32.TryParse(strValor, out valor);
+            return valor;
         }
     }
 }

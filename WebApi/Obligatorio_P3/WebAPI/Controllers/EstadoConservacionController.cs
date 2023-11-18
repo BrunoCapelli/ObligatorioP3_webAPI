@@ -26,5 +26,14 @@ namespace WebAPI.Controllers
             return Ok(estados);
         }
 
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult GetById(int id) {
+            EstadoConservacionDTO estado = _servicioEstadoConservacion.GetEstado(id);
+
+            return Ok(estado);
+        }
+
+
     }
 }

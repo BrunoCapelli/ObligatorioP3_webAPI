@@ -59,7 +59,7 @@ namespace Domain.DTO {
 
         public void Validate() {
             if (this.Nombre.Length < NombreMin || this.Nombre.Length> NombreMax) {
-                throw new NombreLargoException("El largo del nombre debe estar entre 2 y 50 caracteres");
+                throw new NombreLargoException("El largo del nombre debe estar entre " + NombreMin + " y " + NombreMax + " caracteres");
             }
             if (Area <= 0) {
                 throw new RangoException("El area debe ser positiva");

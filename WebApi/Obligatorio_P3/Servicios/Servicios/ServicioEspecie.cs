@@ -2,6 +2,7 @@
 using Domain.DTO;
 using Domain.Entities;
 using Domain.Exceptions;
+using Microsoft.Extensions.Configuration;
 using Servicios.IServicios;
 using System;
 using System.Collections.Generic;
@@ -18,17 +19,23 @@ namespace Servicios.Servicios
         private IRepositorioEstadoConservacion _repoEstadoConservacion;
         private IRepositorioEcosistemaMarinoEspecie _repoEcosistemaMarinoEspecie;
         private IRepositorioEcosistemaMarino _repoEcosistemaMarino;
+        private IConfiguration _configuration;
         public ServicioEspecie(IRepositorioEspecie repoEspecie, IRepositorioEstadoConservacion repoEstadoConservacion, IRepositorioEcosistemaMarinoEspecie repoEcosistemaMarinoEspecie,
-            IRepositorioEcosistemaMarino repositorioEcosistemaMarino)
+            IRepositorioEcosistemaMarino repositorioEcosistemaMarino, IConfiguration configuration)
         {
             _repoEspecie = repoEspecie;
             _repoEstadoConservacion = repoEstadoConservacion;
             _repoEcosistemaMarinoEspecie = repoEcosistemaMarinoEspecie;
             _repoEcosistemaMarino = repositorioEcosistemaMarino;
+            _configuration = configuration;
         }
 
         public EspecieDTO Add(EspecieDTO especieDTO)
         {
+            especieDTO.NombreMin = extraerValor("ParametersTopes:NombreMin");
+            especieDTO.NombreMax = extraerValor("ParametersTopes:NombreMax");
+            especieDTO.DescripcionMin = extraerValor("ParametersTopes:DescripcionMin");
+            especieDTO.DescripcionMax = extraerValor("ParametersTopes:DescripcionMax");
             especieDTO.Validate();
 
             if(especieDTO != null)
@@ -199,5 +206,13 @@ namespace Servicios.Servicios
             _repoEspecie.Save();
   
         }
+
+        private int extraerValor(string clave) {
+            int valor = 0;
+            string strValor = _configuration[clave];
+            Int32.TryParse(strValor, out valor);
+            return valor;
+        }
     }
+
 }
