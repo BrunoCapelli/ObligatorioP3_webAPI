@@ -56,7 +56,7 @@ namespace Data_Access.Repositorios
         }
 
         public void Remove(Especie entity) {
-            _restContext.Remove(entity).GetAwaiter().GetResult();
+            _restContext.Remove(entity.EspecieId).GetAwaiter().GetResult();
         }
 
         public IEnumerable<Especie> GetAll() {
