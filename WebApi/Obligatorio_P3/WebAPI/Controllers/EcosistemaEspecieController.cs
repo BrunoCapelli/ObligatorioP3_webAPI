@@ -15,10 +15,12 @@ namespace WebAPI.Controllers
     public class EcosistemaEspecieController : ControllerBase
     {
         private IServicioEcosistemaMarinoEspecie _servicioEcosistemaMarinoEspecie;
+        private IServicioEspecie _servicioEspecie;
 
-        public EcosistemaEspecieController(IServicioEcosistemaMarinoEspecie servicioEcosistemaMarinoEspecie)
+        public EcosistemaEspecieController(IServicioEcosistemaMarinoEspecie servicioEcosistemaMarinoEspecie, IServicioEspecie servicioEspecie)
         {
             _servicioEcosistemaMarinoEspecie = servicioEcosistemaMarinoEspecie;
+            _servicioEspecie = servicioEspecie;
         }
 
         
@@ -45,6 +47,23 @@ namespace WebAPI.Controllers
             }
             catch (ElementoYaExisteException ex) {
                 return Conflict(ex.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public IActionResult GetById(int id)
+        {
+
+            IEnumerable<EspecieDTO> ecosEsp = _servicioEspecie.FiltrarPorEcosistema(id);
+            if(ecosEsp.Count() != 0)
+            {
+                return Ok(ecosEsp);
+            }
+            else
+            {
+                return NoContent();
             }
         }
 
