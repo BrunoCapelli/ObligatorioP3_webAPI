@@ -31,18 +31,18 @@ namespace Data_Access.Repositorios
 
         public IEnumerable<Especie> GetEspecieByName(string name)
         {
-            string filters = "?name=" + name;
+            string filters = "/nombre/" + name;
             return _restContext.GetAll(filters).GetAwaiter().GetResult();
         }
         public IEnumerable<Especie> GetEspecieByGradoConservacion(int grado)
         {
-            string filters = "?grado=" + grado.ToString();
+            string filters = "/Grado/" + grado;
             return _restContext.GetAll(filters).GetAwaiter().GetResult();
         }
 
         public IEnumerable<Especie> GetEspecieByPeso(int pesoDesde, int pesoHasta)
         {
-            string filters = "?pesoDesde=" + pesoDesde.ToString() + "?pesoHasta" + pesoHasta.ToString() ;
+            string filters = "/Peso/" + pesoDesde + "/" + pesoHasta;
             return _restContext.GetAll(filters).GetAwaiter().GetResult();
         }
 

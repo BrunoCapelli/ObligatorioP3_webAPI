@@ -32,9 +32,9 @@ namespace Data_Access.Repositorios
             return entity;
         }
 
-        public IEnumerable<EcosistemaMarinoEspecie> GetEspeciesByEcosistemaId(int id) // Hay que cambiar filtros para que funque
+        public IEnumerable<EcosistemaMarinoEspecie> GetEspeciesByEcosistemaId(int id)
         {
-            string filters = "?" + id;
+            string filters = "/" + id;
             IEnumerable<EcosistemaMarinoEspecie> entity = _restContext.GetAll(filters).GetAwaiter().GetResult();
             return entity;
         }

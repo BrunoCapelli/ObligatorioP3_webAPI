@@ -189,6 +189,31 @@ namespace WebApp.Controllers
             return string.Empty;
         }
 
+        public string ObtenerNombreImagenEco(int id)
+        {
+
+            // Construye el nombre del archivo de imagen en función del ID.
+            string nombreArchivo = id + "_001";
+
+            // Comprueba las extensiones posibles (jpg, jpeg, png) y obtén la ruta si existe.
+            string[] extensiones = { "jpg", "jpeg", "png" };
+
+            foreach (string extension in extensiones)
+            {
+                //string rutaImagen = Path.Combine(carpetaImagenes, nombreArchivo + "." + extension);
+                //string rutaImagen = carpetaImagenes + "/" + nombreArchivo + "." + extension;
+                string rutaImagen = Path.Combine(_webHostEnvironment.ContentRootPath, "wwwroot", "img", "ecosistemas", nombreArchivo + "." + extension);
+
+                if (System.IO.File.Exists(rutaImagen))
+                {
+                    return nombreArchivo + "." + extension;
+                }
+            }
+
+            // Devuelve una cadena vacía si la imagen no se encuentra.
+            return string.Empty;
+        }
+
         private int extraerValor(string clave) {
             int valor = 0;
             string strValor = _configuration[clave];
@@ -252,6 +277,8 @@ namespace WebApp.Controllers
 
         }
 
+        // Filtros
+
         [HttpPost]
         public IActionResult FiltrarPorNombreCientifico(string fNombreCientifico)
         {
@@ -264,7 +291,7 @@ namespace WebApp.Controllers
                 }
 
                 ViewBag.Especies = Especies;    
-                return View("Index");
+                //return View("Index");
 
             }
             else
@@ -272,6 +299,7 @@ namespace WebApp.Controllers
                 ViewBag.Especies = _servicioEspecie.GetAll();
             }
             ViewBag.Ecosistemas = _servicioEcosistemaMarino.GetAll();
+            ViewBag.Estados = _servicioEstadoConservacion.GetAll();
 
             return View("Index");
         }
@@ -347,12 +375,19 @@ namespace WebApp.Controllers
             ViewBag.Especies = _servicioEspecie.GetAll();
             if (EspecieId > 0)
             {
-                ViewBag.Ecosistemas = _servicioEspecie.FiltrarPorEspecieQueNoHabita(EspecieId);
+                IEnumerable<EcosistemaMarinoDTO> ecos = _servicioEspecie.FiltrarPorEspecieQueNoHabita(EspecieId);
+                foreach (EcosistemaMarinoDTO e in ecos)
+                {
+                    e.ImagenURL = ObtenerNombreImagenEco(e.EcosistemaMarinoId);
+                }
+                ViewBag.Ecosistemas = ecos;
             }
             else
             {
                 ViewBag.Ecosistemas = _servicioEcosistemaMarino.GetAll();
             }
+
+            ViewBag.Estados = _servicioEstadoConservacion.GetAll();
 
             return View();
            

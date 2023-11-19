@@ -138,8 +138,9 @@ namespace Servicios.Servicios
              List<EspecieDTO> especieFiltradas = new List<EspecieDTO>();
              
             foreach(EcosistemaMarinoEspecie em in Ecosistemas)
-            {                
-                EspecieDTO eDTO = new EspecieDTO(em.Especie);
+            {
+                Especie e = _repoEspecie.GetById(em.EspecieId);
+                EspecieDTO eDTO = new EspecieDTO(e);
                 especieFiltradas.Add(eDTO);
             }
 

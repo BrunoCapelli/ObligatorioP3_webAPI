@@ -20,6 +20,43 @@
         background-color: #f2f2f2;
     }
 
+    /* Estilo para los botones */
+    .btn-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .btn {
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        display: inline-block;
+        font-weight: bold;
+    }
+
+    /* Estilo para el botón "Create" */
+    .btn-create {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    /* Estilo para el botón "Asignar" */
+    .btn-asignar {
+        background-color: #ff600e;
+        color: #fff;
+    }
+
+    /* Estilo para el botón "Delete" */
+    .btn-delete {
+        background-color: red;
+        color: white;
+    }
+
+    /* Estilo para la imagen */
+    img {
+        max-width: 70px;
+        max-height: 70px;
+    }
 </style>
 
 <h4>Especies</h4>
@@ -121,6 +158,9 @@
                     <td>@item.UbicacionGeografica.Longitud</td>
                     <td>@item.UbicacionGeografica.GradoPeligro</td>
                     <td>@item.EstadoConservacion.Nombre</td>
+                <td>
+                    <img src="~/img/ecosistemas/@item.ImagenURL" />
+                </td>
                 </tr>
             }
         </tbody>

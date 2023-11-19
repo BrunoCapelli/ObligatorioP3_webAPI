@@ -60,7 +60,12 @@ namespace Domain.DataAccess
             };
             // Configura opciones para la deserialización JSON, como el formato de nombres en camelCase y la escritura en formato JSON con sangría para una mejor legibilidad.
 
-            var entities = JsonSerializer.Deserialize<List<T>>(responseBody, options);
+            List<T> entities = new List<T>();
+            if (responseBody != "")
+            {
+                entities = JsonSerializer.Deserialize<List<T>>(responseBody, options);
+            }
+
             // Realiza la deserialización del cuerpo de la respuesta en una lista de objetos del tipo T.
 
             return entities;
