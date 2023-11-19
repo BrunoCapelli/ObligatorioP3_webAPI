@@ -8,7 +8,7 @@ namespace Servicios.IServicios
 {
     public interface IServicioAudit
     {
-        void Log(int idEntidadModificada, string TipoEntidad);
+        void Log(string Usuario, int idEntidadModificada, string TipoEntidad);
         
     }
 }

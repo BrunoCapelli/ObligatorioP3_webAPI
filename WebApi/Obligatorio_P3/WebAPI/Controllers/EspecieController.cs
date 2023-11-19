@@ -68,7 +68,7 @@ namespace WebAPI.Controllers
             try
             {
                 EspecieDTO eAdd = _servicioEspecie.Add(especieDTO);
-                _servicioAudit.Log(eAdd.EspecieId, "Especie (Add)");
+                _servicioAudit.Log(HttpContext.Session.GetString("email"), eAdd.EspecieId, "Especie (Add)");
                 return Ok(eAdd);
             }
            
@@ -88,6 +88,7 @@ namespace WebAPI.Controllers
             try
             {
                 _servicioEspecie.Remove(id);
+                _servicioAudit.Log(HttpContext.Session.GetString("email"), id, "Especie (Remove)");
                 return Ok("Eliminado con exito");
             }
             catch (ElementoNoValidoException exception)

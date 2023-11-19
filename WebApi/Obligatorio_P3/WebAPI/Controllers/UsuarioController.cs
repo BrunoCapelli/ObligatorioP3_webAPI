@@ -80,7 +80,7 @@ namespace WebAPI.Controllers
                     UsuarioDTO userLogged = _servicioUsuario.FindUser(usuario);
                     if (userLogged != null)
                     {
-                        
+                        HttpContext.Session.SetString("email", userLogged.Alias);
                         string token = GenerarToken(Alias);
                         userLogged.AccessToken = token;
                         userLogged.Password = "";

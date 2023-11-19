@@ -15,8 +15,9 @@ namespace Domain.Entities
         public string TipoEntidad { get; set; }
 
         public Audit() { }
-        public Audit(DateTime Fecha, int IdEntidadModificada, string TipoEntidad) 
+        public Audit(string Usuario, DateTime Fecha, int IdEntidadModificada, string TipoEntidad) 
         {
+            this.Usuario = Usuario;
             this.FechaModificacion = Fecha;
             this.IdEntidad = IdEntidadModificada;
             this.TipoEntidad = TipoEntidad;
