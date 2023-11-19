@@ -39,7 +39,9 @@ namespace WebAPI.Controllers
                         try {
                             usuario = _servicioUsuario.Add(usuario);
                             _servicioAudit.Log("admin1", usuario.UsuarioDTOId, "Usuario (Add)");
-                            return Ok("El usuario se creó correctamente!");
+                            usuario.Password = "";
+                            usuario.AccessToken = "";
+                            return Ok(usuario);
 
                         }
                         catch (Exception ex) {
