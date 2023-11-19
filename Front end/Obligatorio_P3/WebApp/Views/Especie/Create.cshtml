@@ -65,32 +65,32 @@
 
             <div class="form-group">
                 <label asp-for="NombreCientifico" class="control-label">Nombre Cientifico</label>
-                <input asp-for="NombreCientifico" class="form-control" />
+                <input asp-for="NombreCientifico" class="form-control" required />
                 <span asp-validation-for="NombreCientifico" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="NombreVulgar" class="control-label">Nombre Vulgar</label>
-                <input asp-for="NombreVulgar" class="form-control" />
+                <input asp-for="NombreVulgar" class="form-control" required />
                 <span asp-validation-for="NombreVulgar" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
+                <input asp-for="Descripcion" class="form-control" required />
                 <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Peso minimo</label>
-                <input type="number" asp-for="PesoMin" class="form-control" />
+                <input type="number" asp-for="PesoMin" class="form-control" required />
                 <span asp-validation-for="PesoMin" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Peso maximo</label>
-                <input type="number" asp-for="PesoMax" class="form-control" />
+                <input type="number" asp-for="PesoMax" class="form-control" required />
                 <span asp-validation-for="PesoMax" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Estado de conservacion</label>
-                <select name="EstadoConservacion">
+                <select name="EstadoConservacion" required>
                     @foreach (var ec in ViewBag.estados)
                     {
                         <option value="@ec.EstadoConservacionId">@ec.Nombre</option>
@@ -99,7 +99,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Imagen" class="control-label"></label>
-                <input asp-for="Imagen" type="file" class="form-control" />
+                <input asp-for="Imagen" type="file" class="form-control" required />
                 <span asp-validation-for="Imagen" class="text-danger"></span>
             </div>
             <br />

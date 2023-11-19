@@ -35,6 +35,7 @@ namespace Servicios.Servicios
                     //usuario.Password = HashPassword(usuario.Password); // Guardo la contraseña hasheada. Si quiero ver si es correcta, hasheo la que entra y la comparo con la guardada en la base
                     DateTime fecha = DateTime.Now;
                     usuario.FechaAlta = fecha;
+                    usuario.AccessToken = " ";
                     Usuario newUser = _repoUsuario.Add(usuario, token);
                     //_repoUsuario.Save();
 
