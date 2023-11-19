@@ -19,14 +19,9 @@ namespace WebAPI
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
             //builder.Services.AddSession();
-            builder.Services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromSeconds(1800);
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
-            });
-            builder.Services.AddDistributedMemoryCache();
+            //builder.Services.AddDistributedMemoryCache();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -94,7 +89,7 @@ namespace WebAPI
             }
             
 
-            app.UseSession();
+            //app.UseSession();
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
