@@ -18,16 +18,19 @@ namespace WebAPI.Controllers
 
         private IServicioEspecie _servicioEspecie;
         private IServicioEspecieAmenaza _servicioEspecieAmenaza;
+        private IServicioAudit _servicioAudit;
         private IServicioEcosistemaMarinoEspecie _servicioEcosistemaMarinoEspecie;
 
         public EspecieController(IServicioEspecie servicioEspecie,
             IServicioEcosistemaMarinoEspecie servicioEcosistemaMarinoEspecie,
-            IServicioEspecieAmenaza servicioEspecieAmenaza
+            IServicioEspecieAmenaza servicioEspecieAmenaza,
+            IServicioAudit servicioAudit
             )
         {
             _servicioEspecie = servicioEspecie;
             _servicioEspecieAmenaza = servicioEspecieAmenaza;
             _servicioEcosistemaMarinoEspecie = servicioEcosistemaMarinoEspecie;
+            _servicioAudit = servicioAudit;
         }
 
         
@@ -60,11 +63,12 @@ namespace WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
-        public IActionResult Post([FromBody] EspecieDTO especieDTO)  // WIP: tengo que ver que hago con el tema de la imagen al crear un nuevo objeto
+        public IActionResult Post([FromBody] EspecieDTO especieDTO)
         {
             try
             {
                 EspecieDTO eAdd = _servicioEspecie.Add(especieDTO);
+                _servicioAudit.Log(eAdd.EspecieId, "Especie (Add)");
                 return Ok(eAdd);
             }
            

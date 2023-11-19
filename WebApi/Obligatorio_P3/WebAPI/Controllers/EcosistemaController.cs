@@ -22,19 +22,22 @@ namespace WebAPI.Controllers
         private IServicioEstadoConservacion _servicioEstadoConservacion;
         private IServicioEcosistemaAmenaza _servicioEcosistemaAmenaza;
         private IServicioPais _servicioPais;
+        private IServicioAudit _servicioAudit;
         private IConfiguration _configuration;
 
         public EcosistemaController(IServicioEcosistemaMarino servicioEcosistemaMarino,
             IServicioEcosistemaAmenaza servicioEcosistemaAmenaza, 
             IServicioEstadoConservacion servicioEstadoConservacion,
             IConfiguration configuration,
-            IServicioPais servicioPais)
+            IServicioPais servicioPais,
+            IServicioAudit servicioAudit)
         {
             _servicioEcoMarino = servicioEcosistemaMarino;
             _servicioEcosistemaAmenaza = servicioEcosistemaAmenaza;
             _servicioEstadoConservacion = servicioEstadoConservacion;
             _configuration = configuration;
             _servicioPais = servicioPais;
+            _servicioAudit = servicioAudit;
         }
 
         [HttpGet("Ecosistemas")]
@@ -71,6 +74,7 @@ namespace WebAPI.Controllers
             try
             {
                 _servicioEcoMarino.Remove(id);
+                _servicioAudit.Log(id, "Ecosistema (Remove)");
                 return Ok("Eliminado con exito");
             }
             catch (ElementoNoValidoException exception)
@@ -134,8 +138,9 @@ namespace WebAPI.Controllers
                 {
                     Imagen.CopyTo(stream);
                 }*/
-                
-               return Ok(nuevoEco);
+                _servicioAudit.Log(nuevoEco.EcosistemaMarinoId, "Ecosistema (Add)");
+
+                return Ok(nuevoEco);
             }
 
             catch (ElementoNoValidoException ex)
@@ -144,30 +149,30 @@ namespace WebAPI.Controllers
             }
         }
 
-        [Authorize]
-        [HttpPost("AsociarAmenazaAEcosistema/{amenazaId}/{ecosistemaId}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public IActionResult AsociarAmenazaAEcosistema(int amenazaId, int ecosistemaId)
-        {
-            try
-            {
-                if (ecosistemaId > 0 && amenazaId > 0)
-                {
-                    _servicioEcosistemaAmenaza.Add(amenazaId, ecosistemaId);
-                    return Ok();
-                }
-                else
-                {
-                    return BadRequest();
-                }
-            }
-            catch (Exception ex)
-            {
-                return Conflict(ex.Message);
-            }
-        }
+        //[Authorize]
+        //[HttpPost("AsociarAmenazaAEcosistema/{amenazaId}/{ecosistemaId}")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status409Conflict)]
+        //public IActionResult AsociarAmenazaAEcosistema(int amenazaId, int ecosistemaId)
+        //{
+        //    try
+        //    {
+        //        if (ecosistemaId > 0 && amenazaId > 0)
+        //        {
+        //            _servicioEcosistemaAmenaza.Add(amenazaId, ecosistemaId);
+        //            return Ok();
+        //        }
+        //        else
+        //        {
+        //            return BadRequest();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Conflict(ex.Message);
+        //    }
+        //}
 
         private int extraerValor(string clave)
         {

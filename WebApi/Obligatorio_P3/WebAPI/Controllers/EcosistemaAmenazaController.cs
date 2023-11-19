@@ -11,9 +11,11 @@ namespace WebAPI.Controllers {
     [ApiController]
     public class EcosistemaAmenazaController : ControllerBase {
         private IServicioEcosistemaAmenaza _servicioEcosistemaAmenaza;
+        private IServicioAudit _servicioAudit;
 
-        public EcosistemaAmenazaController(IServicioEcosistemaAmenaza servicioEcostemaAmenaza) {
+        public EcosistemaAmenazaController(IServicioEcosistemaAmenaza servicioEcostemaAmenaza, IServicioAudit servicioAudit) {
             _servicioEcosistemaAmenaza = servicioEcostemaAmenaza;
+            _servicioAudit = servicioAudit;
         }
 
         
@@ -25,6 +27,7 @@ namespace WebAPI.Controllers {
         { 
             try {
                 _servicioEcosistemaAmenaza.Add(entity.AmenazaId, entity.EcosistemaMarinoId);
+                _servicioAudit.Log(entity.EcosistemaMarinoId, "EcosistemaMarino (Asig. Amenaza)");
                 return Ok(entity);
             }
             catch (ElementoNoValidoException ex) {

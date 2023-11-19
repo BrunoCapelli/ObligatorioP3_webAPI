@@ -22,7 +22,7 @@ namespace WebAPI.Controllers {
 
 
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)] // Estos chirimbolos son para que Swagger interprete los posibles codigos de error que devuelve y los documente automaticamente
+        [ProducesResponseType(StatusCodes.Status200OK)] 
         public IActionResult GetAll() {
             IEnumerable<AmenazaDTO> amenazas = _servicioAmenaza.GetAll();
             return Ok(amenazas);

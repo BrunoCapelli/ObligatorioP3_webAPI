@@ -19,10 +19,12 @@ namespace WebAPI.Controllers
     {
         private IServicioUsuario _servicioUsuario;
         private readonly IConfiguration _configuration;
-        public UsuarioController(IServicioUsuario servicioUsuario, IConfiguration configuration)
+        private IServicioAudit _servicioAudit;
+        public UsuarioController(IServicioUsuario servicioUsuario, IConfiguration configuration, IServicioAudit servicioAudit)
         {
             _servicioUsuario = servicioUsuario;
             _configuration = configuration;
+            _servicioAudit = servicioAudit;
         }
 
         [HttpPost("Register")]
@@ -36,7 +38,7 @@ namespace WebAPI.Controllers
                         UsuarioDTO usuario = new UsuarioDTO { Alias = user.Alias, Password = user.Password };
                         try {
                             usuario = _servicioUsuario.Add(usuario);
-                            //_servicioAudit.Log(HttpContext.Session.GetString("email") ?? "NULL", usuario.UsuarioDTOId, "Usuario (Add)");
+                            _servicioAudit.Log(usuario.UsuarioDTOId, "Usuario (Add)");
                             return Ok("El usuario se creó correctamente!");
 
                         }

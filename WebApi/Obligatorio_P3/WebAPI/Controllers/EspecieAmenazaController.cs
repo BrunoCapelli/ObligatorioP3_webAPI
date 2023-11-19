@@ -11,9 +11,12 @@ namespace WebAPI.Controllers {
     [ApiController]
     public class EspecieAmenazaController : ControllerBase {
         private IServicioEspecieAmenaza _servicioEspecieAmenaza;
+        private IServicioAudit _servicioAudit;
 
-        public EspecieAmenazaController(IServicioEspecieAmenaza servicioEspecieAmenaza) {
+        public EspecieAmenazaController(IServicioEspecieAmenaza servicioEspecieAmenaza, IServicioAudit servicioAudit)
+        {
             _servicioEspecieAmenaza = servicioEspecieAmenaza;
+            _servicioAudit = servicioAudit;
         }
 
         [Authorize]
@@ -24,6 +27,7 @@ namespace WebAPI.Controllers {
         public IActionResult Post(EspecieAmenazaDTO especieAmenaza) {
             try {
                 _servicioEspecieAmenaza.Add(especieAmenaza.AmenazaId, especieAmenaza.EspecieId);
+                _servicioAudit.Log(especieAmenaza.EspecieId, "Especie (Asig. Amenaza)");
                 return Ok();
             }
             catch (ElementoNoValidoException ex) {

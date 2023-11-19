@@ -16,11 +16,13 @@ namespace WebAPI.Controllers
     {
         private IServicioEcosistemaMarinoEspecie _servicioEcosistemaMarinoEspecie;
         private IServicioEspecie _servicioEspecie;
+        private IServicioAudit _servicioAudit;
 
-        public EcosistemaEspecieController(IServicioEcosistemaMarinoEspecie servicioEcosistemaMarinoEspecie, IServicioEspecie servicioEspecie)
+        public EcosistemaEspecieController(IServicioEcosistemaMarinoEspecie servicioEcosistemaMarinoEspecie, IServicioEspecie servicioEspecie, IServicioAudit servicioAudit)
         {
             _servicioEcosistemaMarinoEspecie = servicioEcosistemaMarinoEspecie;
             _servicioEspecie = servicioEspecie;
+            _servicioAudit = servicioAudit;
         }
 
         
@@ -40,6 +42,7 @@ namespace WebAPI.Controllers
         public IActionResult Post(int ecosistemaId , int especieId) {
             try {
                 EcosistemaMarinoEspecieDTO res = _servicioEcosistemaMarinoEspecie.Add(ecosistemaId, especieId);
+                _servicioAudit.Log(res.EcosistemaMarinoId, "Especie (Asig. Eco)");
                 return Ok(res);
             }
             catch (ElementoNoValidoException ex) {
