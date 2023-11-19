@@ -74,7 +74,7 @@ namespace WebAPI.Controllers
             try
             {
                 _servicioEcoMarino.Remove(id);
-                _servicioAudit.Log(HttpContext.Session.GetString("email"), id, "Ecosistema (Remove)");
+                _servicioAudit.Log("Usuario", id, "Ecosistema (Remove)");
                 return Ok("Eliminado con exito");
             }
             catch (ElementoNoValidoException exception)
@@ -138,7 +138,7 @@ namespace WebAPI.Controllers
                 {
                     Imagen.CopyTo(stream);
                 }*/
-                _servicioAudit.Log(HttpContext.Session.GetString("email"), nuevoEco.EcosistemaMarinoId, "Ecosistema (Add)");
+                _servicioAudit.Log("Usuario", nuevoEco.EcosistemaMarinoId, "Ecosistema (Add)");
 
                 return Ok(nuevoEco);
             }

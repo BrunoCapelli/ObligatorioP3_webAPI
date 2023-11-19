@@ -42,7 +42,7 @@ namespace WebAPI.Controllers
         public IActionResult Post(int ecosistemaId , int especieId) {
             try {
                 EcosistemaMarinoEspecieDTO res = _servicioEcosistemaMarinoEspecie.Add(ecosistemaId, especieId);
-                _servicioAudit.Log(HttpContext.Session.GetString("email"), res.EcosistemaMarinoId, "Especie (Asig. Eco)");
+                _servicioAudit.Log("Usuario", res.EcosistemaMarinoId, "Especie (Asig. Eco)");
                 return Ok(res);
             }
             catch (ElementoNoValidoException ex) {

@@ -27,7 +27,7 @@ namespace WebAPI.Controllers {
         { 
             try {
                 _servicioEcosistemaAmenaza.Add(entity.AmenazaId, entity.EcosistemaMarinoId);
-                _servicioAudit.Log(HttpContext.Session.GetString("email"),entity.EcosistemaMarinoId, "EcosistemaMarino (Asig. Amenaza)");
+                _servicioAudit.Log("Usuario",entity.EcosistemaMarinoId, "EcosistemaMarino (Asig. Amenaza)");
                 return Ok(entity);
             }
             catch (ElementoNoValidoException ex) {

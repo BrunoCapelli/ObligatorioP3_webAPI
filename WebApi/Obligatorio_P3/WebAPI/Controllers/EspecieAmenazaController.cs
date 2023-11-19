@@ -27,7 +27,7 @@ namespace WebAPI.Controllers {
         public IActionResult Post(EspecieAmenazaDTO especieAmenaza) {
             try {
                 _servicioEspecieAmenaza.Add(especieAmenaza.AmenazaId, especieAmenaza.EspecieId);
-                _servicioAudit.Log(HttpContext.Session.GetString("email"), especieAmenaza.EspecieId, "Especie (Asig. Amenaza)");
+                _servicioAudit.Log("Usuario", especieAmenaza.EspecieId, "Especie (Asig. Amenaza)");
                 return Ok();
             }
             catch (ElementoNoValidoException ex) {

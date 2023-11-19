@@ -38,7 +38,7 @@ namespace WebAPI.Controllers
                         UsuarioDTO usuario = new UsuarioDTO { Alias = user.Alias, Password = user.Password };
                         try {
                             usuario = _servicioUsuario.Add(usuario);
-                            _servicioAudit.Log(usuario.UsuarioDTOId, "Usuario (Add)");
+                            _servicioAudit.Log("admin1", usuario.UsuarioDTOId, "Usuario (Add)");
                             return Ok("El usuario se creó correctamente!");
 
                         }
