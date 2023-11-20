@@ -13,6 +13,12 @@
             color: red;
             font-size: 18px;
         }
+
+        /* Agrega un estilo para el mensaje de éxito */
+        #mensajeRespuesta.success {
+            color: green;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
@@ -35,7 +41,7 @@
             <!-- Agrega el botón de envío con clase de Bootstrap -->
             <button type="button" class="btn btn-primary" onclick="enviarFormulario()">Enviar</button>
 
-            
+
         </form>
     </div>
 
@@ -122,7 +128,7 @@
                     success: function (data) {
                         // Manejar la respuesta exitosa
                         var mensaje = 'La especie ' + especieNombre + ' fue asignada al ecosistema ' + ecosistemaNombre + '.';
-                        mostrarMensaje(mensaje);
+                        mostrarMensajeExito(mensaje);
                     },
                     error: function (xhr) {
                         // Manejar el error
@@ -135,10 +141,16 @@
             }
         }
 
+        // Función para mostrar un mensaje de éxito en el contenedor
+        function mostrarMensajeExito(mensaje) {
+            // Agregar clase de estilo para el mensaje de éxito
+            $('#mensajeRespuesta').removeClass('error').addClass('success').text(mensaje);
+        }
+
         // Función para mostrar un mensaje de error en el contenedor
         function mostrarMensajeError(mensaje) {
             // Agregar clase de estilo para el mensaje de error
-            $('#mensajeRespuesta').addClass('error').text(mensaje);
+            $('#mensajeRespuesta').removeClass('success').addClass('error').text(mensaje);
         }
 
         // Función para obtener el mensaje de error desde la respuesta HTTP
