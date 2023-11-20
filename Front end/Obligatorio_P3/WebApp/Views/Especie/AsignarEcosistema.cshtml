@@ -1,43 +1,157 @@
-﻿@{
-    ViewData["Title"] = "Asignar Ecosistema";
-}
-
-<h4>Asignar Especie a Ecosistema</h4>
-
-<form asp-action="AsignarEcosistema" method="post">
-
-    <h6>Especie:</h6>
-    <select name="EspecieId">
-
-        @foreach (var e in ViewBag.Especies)
-        {
-            <option value="@e.EspecieId">@e.NombreVulgar (@e.NombreCientifico)</option>
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Página</title>
+    <!-- Asegúrate de incluir jQuery y Bootstrap en tu vista -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        /* Agrega un estilo para el mensaje de error */
+        #mensajeRespuesta.error {
+            color: red;
+            font-size: 18px;
         }
+    </style>
+</head>
+<body>
 
-    </select>
-    <br />
-    <br />
-    <h6>Ecosistema:</h6>
-    <select name="EcosistemaId">
+    <!-- Agrega un contenedor para mostrar el mensaje de respuesta -->
+    <div id="mensajeRespuesta" class="mt-3"></div>
+    <!-- Agrega los elementos select en tu formulario con clases de Bootstrap -->
+    <div class="container mt-5">
+        <form id="miFormulario">
+            <div class="form-group">
+                <label for="EcosistemaId">Ecosistema:</label>
+                <select class="form-control" id="EcosistemaId" name="EcosistemaId"></select>
+            </div>
 
-        @foreach (var ec in ViewBag.Ecosistemas)
-        {
-            <option value="@ec.EcosistemaMarinoId">@ec.Nombre</option>
-        }
+            <div class="form-group">
+                <label for="EspecieId">Especie:</label>
+                <select class="form-control" id="EspecieId" name="EspecieId"></select>
+            </div>
 
-    </select>
+            <!-- Agrega el botón de envío con clase de Bootstrap -->
+            <button type="button" class="btn btn-primary" onclick="enviarFormulario()">Enviar</button>
 
-    <br />
-    <br />
-
-    <input type="submit" value="Asignar" class="btn btn-primary" />
-    <br />
-    <div>
-        <p>@TempData["msg"]</p>
+            
+        </form>
     </div>
-   
-</form>
 
+    <!-- Agrega este script en tu vista -->
+    <script>
+        $(document).ready(function () {
+            // Función para llenar el select de Ecosistema
+            function cargarEcosistemas() {
+                $.ajax({
+                    url: 'https://localhost:7002/api/Ecosistema/Ecosistemas',
+                    method: 'GET',
+                    success: function (data) {
+                        var selectEcosistema = $('#EcosistemaId');
 
+                        // Limpiar el select actual
+                        selectEcosistema.empty();
 
+                        // Llenar el select con los nombres de los ecosistemas
+                        $.each(data, function (index, ecosistema) {
+                            selectEcosistema.append($('<option>', {
+                                value: ecosistema.ecosistemaMarinoId,
+                                text: ecosistema.nombre
+                            }));
+                        });
+                    },
+                    error: function () {
+                        console.log('Error al obtener datos de la API de Ecosistemas');
+                    }
+                });
+            }
 
+            // Función para llenar el select de Especie
+            function cargarEspecies() {
+                $.ajax({
+                    url: 'https://localhost:7002/api/Especie',
+                    method: 'GET',
+                    success: function (data) {
+                        var selectEspecie = $('#EspecieId');
+
+                        // Limpiar el select actual
+                        selectEspecie.empty();
+
+                        // Llenar el select con los nombres de las especies
+                        $.each(data, function (index, especie) {
+                            selectEspecie.append($('<option>', {
+                                value: especie.especieId,
+                                text: especie.nombreVulgar
+                            }));
+                        });
+                    },
+                    error: function () {
+                        console.log('Error al obtener datos de la API de Especies');
+                    }
+                });
+            }
+
+            // Llamar a las funciones al cargar la página
+            cargarEcosistemas();
+            cargarEspecies();
+        });
+
+        // Función para enviar el formulario con la solicitud POST
+        function enviarFormulario() {
+            // Obtener valores seleccionados
+            var ecosistemaId = $('#EcosistemaId').val();
+            var especieId = $('#EspecieId').val();
+
+            // Obtener nombres de ecosistema y especie
+            var ecosistemaNombre = $('#EcosistemaId option:selected').text();
+            var especieNombre = $('#EspecieId option:selected').text();
+
+            // Obtener token de la sesión usando Razor
+            var token = '@Context.Session.GetString("email")';
+
+            // Verificar si los valores son válidos
+            if (ecosistemaId && especieId && token) {
+                // Realizar la solicitud POST
+                $.ajax({
+                    url: 'https://localhost:7002/api/EcosistemaEspecie?ecosistemaId=' + ecosistemaId + '&especieId=' + especieId,
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    success: function (data) {
+                        // Manejar la respuesta exitosa
+                        var mensaje = 'La especie ' + especieNombre + ' fue asignada al ecosistema ' + ecosistemaNombre + '.';
+                        mostrarMensaje(mensaje);
+                    },
+                    error: function (xhr) {
+                        // Manejar el error
+                        var mensajeError = 'Error en la solicitud: ' + obtenerMensajeError(xhr);
+                        mostrarMensajeError(mensajeError);
+                    }
+                });
+            } else {
+                mostrarMensaje('Valores seleccionados no válidos o token no disponible.');
+            }
+        }
+
+        // Función para mostrar un mensaje de error en el contenedor
+        function mostrarMensajeError(mensaje) {
+            // Agregar clase de estilo para el mensaje de error
+            $('#mensajeRespuesta').addClass('error').text(mensaje);
+        }
+
+        // Función para obtener el mensaje de error desde la respuesta HTTP
+        function obtenerMensajeError(xhr) {
+            var mensaje = ' ' + xhr.responseText;
+            return mensaje;
+        }
+    </script>
+
+    <!-- Asegúrate de incluir Bootstrap JS al final del cuerpo del documento -->
+    <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>
