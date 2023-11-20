@@ -46,9 +46,12 @@ namespace WebAPI.Controllers
                 return Ok(res);
             }
             catch (ElementoNoValidoException ex) {
-                return BadRequest(ex.ToString());
+                return BadRequest(ex.Message);
             }
             catch (ElementoYaExisteException ex) {
+                return Conflict(ex.Message);
+            }
+            catch(AmenazaException ex) {
                 return Conflict(ex.Message);
             }
         }

@@ -53,6 +53,7 @@ namespace Servicios.Servicios
 
                 EcosistemaMarinoEspecie newEme = new EcosistemaMarinoEspecie();
 
+                
                 if (isApto(especie.EspecieId, ecosistema.EcosistemaMarinoId))
                 {
                     newEme = new EcosistemaMarinoEspecie(ecosistema, especie);
@@ -112,7 +113,7 @@ namespace Servicios.Servicios
             }
             else
             {
-                throw new Exception("El nivel de estado de conservacion no es suficiente para esta asociacion");
+                throw new ElementoNoValidoException("El nivel de estado de conservacion no es suficiente para esta asociacion");
             }
 
             // Chequeo que la especie y el ecosistema no sufran la misma amenaza

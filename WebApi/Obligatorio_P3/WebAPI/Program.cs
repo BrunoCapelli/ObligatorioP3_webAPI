@@ -18,6 +18,13 @@ namespace WebAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddCors(options => {
+                options.AddPolicy("AllowAll",
+                    builder => {
+                        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                    });
+            });
+
             // Add services to the container.
 
             //builder.Services.AddSession();
@@ -86,6 +93,7 @@ namespace WebAPI
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                app.UseCors("AllowAll");
             }
             
 
