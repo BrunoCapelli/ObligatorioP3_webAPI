@@ -186,32 +186,7 @@ namespace WebAPI.Controllers
                 return Conflict(ex.Message);
             }
         }
-
-        [Authorize]
-        [HttpPost("AsociarAmenazaAEspecie")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public IActionResult AsociarAmenazaAEspecie(int AmenazaId, int EspecieId)
-        {
-            try
-            {
-                if (EspecieId > 0 && AmenazaId > 0)
-                {
-                    _servicioEspecieAmenaza.Add(AmenazaId, EspecieId);
-                    return Ok();
-                }
-                else
-                {
-                    return BadRequest();
-                }
-            }
-            catch (Exception ex)
-            {
-                return Conflict(ex.Message);
-            }
-        }
-        
+  
 
 
     }
