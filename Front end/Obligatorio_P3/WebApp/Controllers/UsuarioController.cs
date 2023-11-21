@@ -43,6 +43,7 @@ namespace WebApp.Controllers
                     string userLoggedToken = _servicioUsuario.Login(usuario);
                     if (userLoggedToken != "")
                     {
+                        HttpContext.Session.SetString("alias", Alias);
                         HttpContext.Session.SetString("email", userLoggedToken); // email = token
                         return RedirectToAction("Index", "Home");
 
@@ -79,17 +80,17 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            //if (HttpContext.Session.GetString("email") == "admin1")
-            //{
+            if (HttpContext.Session.GetString("alias") == "admin1")
+            {
                 
                 return View();
 
-            //}
-            //else
-            //{
-            //    return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
 
-            //}
+            }
         }
 
         [HttpPost]
