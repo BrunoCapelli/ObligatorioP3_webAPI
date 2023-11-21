@@ -2,39 +2,42 @@
     ViewData["Title"] = "Asignar Amenaza";
 }
 
-<h4>Asignar Amenaza a Especie </h4>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h4 class="text-center mb-4">Asignar Amenaza a Especie</h4>
 
-<form asp-action="AsignarAmenaza" method="post">
+            @if (!string.IsNullOrEmpty((string)TempData["msg"])) {
+                <div class="alert alert-danger mt-3" role="alert">
+                    @TempData["msg"]
+                </div>
+            }
 
-    <h6>Especie:</h6>
-    <select name="EspecieId">
+            <form asp-action="AsignarAmenaza" method="post">
+                <div class="form-group">
+                    <label for="EspecieId">Especie:</label>
+                    <select name="EspecieId" class="form-control">
+                        @foreach (var e in ViewBag.Especies) {
+                            <option value="@e.EspecieId">@e.NombreVulgar (@e.NombreCientifico)</option>
+                        }
+                    </select>
+                </div>
 
-        @foreach (var e in ViewBag.Especies)
-        {
-            <option value="@e.EspecieId">@e.NombreVulgar (@e.NombreCientifico)</option>
-        }
+                <div class="form-group">
+                    <label for="AmenazaId">Amenaza:</label>
+                    <select name="AmenazaId" class="form-control">
+                        @foreach (var a in ViewBag.Amenazas) {
+                            <option value="@a.AmenazaId">@a.Nombre</option>
+                        }
+                    </select>
+                </div>
 
-    </select>
-    <br />
+                <div class="form-group">
+                    <input type="submit" value="Asignar" class="btn btn-primary" />
+                </div>
+            </form>
 
-    <br />
-    <h6>Amenaza:</h6>
-    <select name="AmenazaId">
-
-        @foreach (var a in ViewBag.Amenazas)
-        {
-            <option value="@a.AmenazaId">@a.Nombre</option>
-        }
-
-    </select>
-
-    <br />
-    <br />
-
-    <input type="submit" value="Asignar" class="btn btn-primary" />
-    <br />
-    <div>
-        <p>@TempData["msg"]</p>
+            
+        </div>
     </div>
-
-</form>
+</div>

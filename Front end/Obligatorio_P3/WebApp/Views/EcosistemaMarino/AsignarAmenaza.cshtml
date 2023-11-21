@@ -1,36 +1,39 @@
-﻿
-<h4>Asignar Amenaza a Ecosistema</h4>
+﻿<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h4 class="text-center mb-4">Asignar Amenaza a Ecosistema</h4>
+            
+            @if (!string.IsNullOrEmpty((string)TempData["msg"])) {
+                <div class="alert alert-danger mt-3" role="alert">
+                    @TempData["msg"]
+                </div>
+            }
 
-<form asp-action="AsignarAmenaza" method="post">
+            <form asp-action="AsignarAmenaza" method="post">
+                <div class="form-group">
+                    <label for="AmenazaId">Amenaza:</label>
+                    <select name="AmenazaId" class="form-control">
+                        @foreach (var a in ViewBag.Amenazas) {
+                            <option value="@a.AmenazaId">@a.Nombre </option>
+                        }
+                    </select>
+                </div>
 
-    <h6>Amenaza:</h6>
-    <select name="AmenazaId">
+                <div class="form-group">
+                    <label for="EcosistemaId">Ecosistema:</label>
+                    <select name="EcosistemaId" class="form-control">
+                        @foreach (var ec in ViewBag.Ecosistemas) {
+                            <option value="@ec.EcosistemaMarinoId">@ec.Nombre</option>
+                        }
+                    </select>
+                </div>
 
-        @foreach (var a in ViewBag.Amenazas)
-        {
-            <option value="@a.AmenazaId">@a.Nombre </option>
-        }
+                <div class="form-group">
+                    <input type="submit" value="Asignar" class="btn btn-primary" />
+                </div>
+            </form>
 
-    </select>
-    <br />
-    <br />
-    <h6>Ecosistema:</h6>
-    <select name="EcosistemaId">
-
-        @foreach (var ec in ViewBag.Ecosistemas)
-        {
-            <option value="@ec.EcosistemaMarinoId">@ec.Nombre</option>
-        }
-
-    </select>
-
-    <br />
-    <br />
-
-    <input type="submit" value="Asignar" class="btn btn-primary" />
-    <br />
-    <div>
-        <p>@TempData["msg"]</p>
+            
+        </div>
     </div>
-
-</form>
+</div>
