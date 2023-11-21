@@ -20,14 +20,16 @@ namespace Servicios.Servicios
         private IRepositorioEcosistemaMarinoEspecie _repoEcosistemaMarinoEspecie;
         private IRepositorioEcosistemaMarino _repoEcosistemaMarino;
         private IConfiguration _configuration;
+        private IRepositorioEspecieAmenaza _repoEspecieAmenaza;
         public ServicioEspecie(IRepositorioEspecie repoEspecie, IRepositorioEstadoConservacion repoEstadoConservacion, IRepositorioEcosistemaMarinoEspecie repoEcosistemaMarinoEspecie,
-            IRepositorioEcosistemaMarino repositorioEcosistemaMarino, IConfiguration configuration)
+            IRepositorioEcosistemaMarino repositorioEcosistemaMarino, IConfiguration configuration,IRepositorioEspecieAmenaza repoEspecieAmenaza)
         {
             _repoEspecie = repoEspecie;
             _repoEstadoConservacion = repoEstadoConservacion;
             _repoEcosistemaMarinoEspecie = repoEcosistemaMarinoEspecie;
             _repoEcosistemaMarino = repositorioEcosistemaMarino;
             _configuration = configuration;
+            _repoEspecieAmenaza = repoEspecieAmenaza;
         }
 
         public EspecieDTO Add(EspecieDTO especieDTO)
@@ -199,6 +201,14 @@ namespace Servicios.Servicios
                 if(emEspecie.EspecieId == id)
                 {
                     _repoEcosistemaMarinoEspecie.Remove(emEspecie);
+                }
+            }
+
+            IEnumerable<EspecieAmenaza> EsAm = _repoEspecieAmenaza.GetAll();
+
+            foreach(EspecieAmenaza esAmenaza in EsAm) {
+                if(esAmenaza.EspecieId == id) {
+                    _repoEspecieAmenaza.Remove(esAmenaza);
                 }
             }
 

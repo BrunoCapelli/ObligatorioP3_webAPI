@@ -18,15 +18,17 @@ namespace Servicios.Servicios
         private IRepositorioEcosistemaMarino _repoEcosistemaMarino;
         private IRepositorioEcosistemaMarinoEspecie _repoEcosistemaMarinoEspecie;
         private IRepositorioEstadoConservacion _repoEstadoConservacion;
+        private IRepositorioEcosistemaAmenaza _repoEcosistemaAmenaza;
         private IRepositorioPais _repoPais;
         private IConfiguration _configuration;
 
-        public ServicioEcosistemaMarino(IRepositorioEcosistemaMarino repoEcosistemaMarino, IRepositorioEstadoConservacion repoEstadoConservacion,IRepositorioPais repoPais, IRepositorioEcosistemaMarinoEspecie repoEcosistemaMarinoEspecie, IConfiguration configuration) {
+        public ServicioEcosistemaMarino(IRepositorioEcosistemaMarino repoEcosistemaMarino, IRepositorioEstadoConservacion repoEstadoConservacion,IRepositorioPais repoPais, IRepositorioEcosistemaMarinoEspecie repoEcosistemaMarinoEspecie, IConfiguration configuration, IRepositorioEcosistemaAmenaza repoEcosistemaAmenaza) {
             _repoEcosistemaMarino = repoEcosistemaMarino;
             _repoEcosistemaMarinoEspecie = repoEcosistemaMarinoEspecie;
             _repoEstadoConservacion = repoEstadoConservacion;
             _repoPais = repoPais;
             _configuration = configuration;
+            _repoEcosistemaAmenaza = repoEcosistemaAmenaza;
         }
         public EcosistemaMarinoDTO Add(EcosistemaMarinoDTO entity) {
 
@@ -99,11 +101,20 @@ namespace Servicios.Servicios
         public void Remove(int id) {
             EcosistemaMarino eco = _repoEcosistemaMarino.GetById(id);
             IEnumerable<EcosistemaMarinoEspecie> EmEs = _repoEcosistemaMarinoEspecie.GetAll();
+            IEnumerable<EcosistemaAmenaza> EmAm = _repoEcosistemaAmenaza.GetAll(); 
             int contador = 0;
+            
             foreach(EcosistemaMarinoEspecie emEspecie in EmEs)
             {
                 if(emEspecie.EcosistemaMarinoId == id && emEspecie.EspecieId != 0) contador++;
             }
+
+            foreach(EcosistemaAmenaza emAmenaza in EmAm) {
+                if(emAmenaza.EcosistemaMarinoId == id) {
+                    _repoEcosistemaAmenaza.Remove(emAmenaza);
+                }
+            }
+
 
             if(contador == 0)
             {
