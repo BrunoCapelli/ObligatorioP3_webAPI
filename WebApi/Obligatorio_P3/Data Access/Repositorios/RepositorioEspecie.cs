@@ -42,10 +42,27 @@ namespace Data_Access.Repositorios
 
         public List<Especie> GetEspecieByPeso(int pesoDesde, int pesoHasta)
         {
-            return Context.Especies.Where(e => e.PesoMin >= pesoDesde && e.PesoMax <= pesoHasta)
+            if (pesoDesde == 0 && pesoHasta != 0) {
+                return Context.Especies.Where(e => e.PesoMax <= pesoHasta)
                 .Include(e => e.EstadoConservacion)
                 .Include(e => e.EcosistemasHabitados)
                 .ToList();
+            }
+            else {
+                if (pesoDesde != 0 && pesoHasta == 0) {
+                    return Context.Especies.Where(e => e.PesoMin >= pesoDesde)
+                    .Include(e => e.EstadoConservacion)
+                    .Include(e => e.EcosistemasHabitados)
+                    .ToList();
+                }
+                else {
+                    return Context.Especies.Where(e => e.PesoMin >= pesoDesde && e.PesoMax <= pesoHasta)
+                   .Include(e => e.EstadoConservacion)
+                   .Include(e => e.EcosistemasHabitados)
+                   .ToList();
+                }
+            }
+           
         }
 
     }
