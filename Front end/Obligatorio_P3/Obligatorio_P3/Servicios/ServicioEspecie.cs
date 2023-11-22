@@ -180,36 +180,59 @@ namespace Servicios.Servicios
 
              return especieFiltradas;
         }
+        
         public IEnumerable<EcosistemaMarinoDTO> FiltrarPorEspecieQueNoHabita(int EspecieId)
         {
 
             IEnumerable<EcosistemaMarinoEspecie> EcosistemaEspecie = _repoEcosistemaMarinoEspecie.GetAll();
             IEnumerable<EcosistemaMarino> Ecosistemas = _repoEcosistemaMarino.GetAllEcosistemas();
-            List<EcosistemaMarino> EcosistemasNoHabitados = new List<EcosistemaMarino>();
+            List<EcosistemaMarino> EcosistemasAux = new List<EcosistemaMarino>();
+
+            List<EcosistemaMarino> EcosistemasHabitados = new List<EcosistemaMarino>();
+            IEnumerable<EcosistemaMarino> EcosistemasNoHabitados = new List<EcosistemaMarino>();
             //List<EspecieDTO> especieFiltradas = new List<EspecieDTO>();
             List<EcosistemaMarinoDTO> EcosistemasFiltrados = new List<EcosistemaMarinoDTO>();
 
 
-            foreach (EcosistemaMarinoEspecie eco in EcosistemaEspecie)
-            {
-                if (eco.EspecieId != EspecieId)
-                {
-                    EcosistemasNoHabitados.Add(eco.EcosistemaMarino);
-                }
+            //foreach (EcosistemaMarinoEspecie eco in EcosistemaEspecie)
+            //{
+            //    if (eco.EspecieId == EspecieId)
+            //    {
+            //        EcosistemasHabitados.Add(eco.EcosistemaMarino);
 
+            //    }
+
+            //}
+
+            foreach(EcosistemaMarino eco in Ecosistemas)
+            {
+                EcosistemasAux.Add(eco);
             }
 
-            foreach(EcosistemaMarino eco in EcosistemasNoHabitados)
+            foreach(EcosistemaMarino eco in EcosistemasAux)
             {
-                foreach(EcosistemaMarino ecosistema in Ecosistemas)
+                foreach(EcosistemaMarino ecoHabitado in EcosistemasHabitados)
                 {
-                    if(eco.EcosistemaMarinoId == ecosistema.EcosistemaMarinoId)
+                    if(eco.EcosistemaMarinoId == ecoHabitado.EcosistemaMarinoId)
                     {
-                        EcosistemaMarinoDTO ecoDTO = new EcosistemaMarinoDTO(eco);
-                        EcosistemasFiltrados.Add(ecoDTO);
+                        EcosistemasAux.Remove(ecoHabitado);
                     }
 
                 }
+            }
+
+            foreach (EcosistemaMarino eco in EcosistemasAux)
+            {
+                //foreach (EcosistemaMarino ecosistema in Ecosistemas)
+                //{
+                    //if (eco.EcosistemaMarinoId == ecosistema.EcosistemaMarinoId)
+                    //{
+                        EcosistemaMarinoDTO ecoDTO = new EcosistemaMarinoDTO(eco);
+
+                        EcosistemasFiltrados.Add(ecoDTO);
+                    //}
+
+                //}
             }
 
 
