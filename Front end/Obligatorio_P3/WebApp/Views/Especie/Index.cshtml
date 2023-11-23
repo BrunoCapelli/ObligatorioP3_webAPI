@@ -106,8 +106,8 @@
         <form asp-action="FiltrarPorPeso" method="post">
             <div id="divRangoPeso">
                 <label class="control-label">Buscar por rango de peso:</label>
-                <input name="pesoDesde" type="text" class="form-control" style="width: 17%;" />
-                <input name="pesoHasta" type="text" class="form-control" style="width: 17%;" />
+                <input name="pesoDesde" type="text" class="form-control" style="width: 17%;" required/>
+                <input name="pesoHasta" type="text" class="form-control" style="width: 17%;" required />
                 <input type="submit" value="Buscar" class="btn btn-primary" style="margin-top: 1%" /> <br>
 
 
@@ -130,7 +130,7 @@
 
         <form asp-action="FiltrarPorEspecieQueNoHabita" method="post">
             <div id="divNoPuedeHabitar">
-                <label class="control-label">Buscar que ecosistemas no puede habitar la especie: </label>
+                <label class="control-label">Buscar que ecosistemas no habita: </label>
                 <select name="EspecieId" class="form-select" style="width: 17%;">
                     @foreach (var e in ViewBag.Especies)
                     {
